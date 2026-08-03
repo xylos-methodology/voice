@@ -33,7 +33,6 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
-        /* КИБЕРЗАЩИТА */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -55,7 +54,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* ХЕДЕР (ГРУБЫЙ МАРКЕРНЫЙ МАНУСКРИПТ) */
+        /* ХЕДЕР */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -147,7 +146,6 @@
             opacity: 1;
         }
 
-        /* ОСНОВНОЙ КОНТЕЙНЕР */
         .main-container {
             width: 100%;
             max-width: 1000px;
@@ -171,23 +169,18 @@
             display: block;
         }
 
-        /* КРИСТАЛЬНО ТОЧНАЯ ЗОНА КЛИКА (ИСПРАВЛЕННАЯ ВЕРСИЯ) */
+        /* ЗОНА КЛИКА — ТОЧНЫЕ КООРДИНАТЫ, БЕЗ ПОДСВЕТКИ */
         .poster-hotspot-link {
             position: absolute;
-            top: 85.5%; /* Хирургическая посадка на центр алой плашки */
+            bottom: 8.5%; /* КООРДИНАТА, КОТОРАЯ РАБОТАЛА */
             left: 50%;
             transform: translateX(-50%);
-            width: 44%; /* Сжали ширину под кнопку */
-            height: 6.2%; /* Увеличили высоту для комфортного клика */
-            background-color: rgba(184, 46, 18, 0.0);
+            width: 44%;
+            height: 6.2%;
+            background-color: transparent;
             border: none;
             cursor: pointer;
-            transition: background-color 0.2s ease;
             z-index: 10;
-        }
-
-        .poster-hotspot-link:hover {
-            background-color: rgba(184, 46, 18, 0.12);
         }
 
         .poster-hotspot-link:focus {
@@ -279,7 +272,7 @@
                 padding: 5px 10px 20px 10px;
             }
             .poster-hotspot-link {
-                top: 85%;
+                bottom: 8%;
                 width: 55%;
                 height: 5.5%;
             }
