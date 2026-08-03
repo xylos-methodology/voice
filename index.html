@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Голос сотрудников — 4 ночных кошмара</title>
+    <title>VOICE // Хроники ночных переделок</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Яндекс Метрика (ВСТАВЬТЕ СЮДА ВАШ НОВЫЙ ID, КОГДА ПОЛУЧИТЕ) -->
-    <!--
-    <script>
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j=0; j<document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t), a=e.getElementsByTagName(t)[0], k.async=1, k.src=r, a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    <!-- Яндекс Метрика -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111264603', 'ym');
 
-        ym(ВАШ_НОВЫЙ_ID, "init", {
+        ym(111264603, 'init', {
+            ssr: true,
+            webvisor: false, // Вебвизор ОТКЛЮЧЁН для анонимности
             clickmap: true,
-            trackLinks: true,
+            ecommerce: "dataLayer",
+            referrer: document.referrer,
+            url: location.href,
             accurateTrackBounce: true,
-            webvisor: false
+            trackLinks: true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/ВАШ_НОВЫЙ_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    -->
+    <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
+        /* КИБЕРЗАЩИТА: БЛОКИРОВКА ВЫДЕЛЕНИЯ */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -36,187 +41,222 @@
             -webkit-touch-callout: none;
         }
 
+        /* ОБЩИЕ СТИЛИ */
         body {
-            background-image: url('workspace-bg.jpg');
-            background-repeat: no-repeat;
-            background-position: center top;
-            background-size: cover;
-            background-attachment: fixed;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            background: url('workspace-bg.jpg') repeat;
+            background-size: cover;
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* 1. ШАПКА — ТЁПЛЫЙ БУМАЖНЫЙ */
-        .top-bar {
+        /* БРУТАЛЬНЫЙ B2B-ХЕДЕР (ПРОЗРАЧНЫЙ) */
+        .voice-header {
             width: 100%;
-            max-width: 650px;
+            max-width: 800px;
             box-sizing: border-box;
-            background: #D6CCBB;
-            padding: 10px 16px;
-            font-size: 10px;
-            letter-spacing: 0.06em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #C9BBA8;
+            font-family: 'Inter', sans-serif;
+            background: transparent;
+            user-select: none;
             margin-top: 20px;
         }
-        .top-bar .project-title {
-            font-weight: 700;
-            color: #25282B;
-            letter-spacing: 0.15em;
-        }
-        .top-bar .session-status {
-            font-weight: 600;
-            color: #108548;
+
+        .pulse-line {
+            background-color: #1A1C1E;
+            width: 100%;
+            padding: 8px 20px;
+            box-sizing: border-box;
             display: flex;
             align-items: center;
-            gap: 5px;
-        }
-        .top-bar .session-status::before {
-            content: "";
-            width: 5px;
-            height: 5px;
-            background-color: #108548;
-            border-radius: 50%;
-            display: inline-block;
-            animation: blink 2s infinite;
-        }
-        @keyframes blink {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+            justify-content: flex-start;
+            border-bottom: 2px solid #1A1C1E;
         }
 
-        /* 2. НАВИГАЦИЯ — ТЁМНЫЙ БУМАЖНЫЙ */
-        .step-nav {
-            width: 100%;
-            max-width: 650px;
-            box-sizing: border-box;
-            background: #C9BBA8;
-            padding: 16px 16px;
-            font-size: 10px;
-            letter-spacing: 0.05em;
+        .pulse-text {
+            color: #FFFFFF;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #B82E12;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: blink-animation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes blink-animation {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        .steps-table {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #B8A996;
-            position: relative;
+            width: 100%;
+            border-bottom: 2px solid #1A1C1E;
+            box-sizing: border-box;
         }
-        .step-nav::before {
-            content: "";
-            position: absolute;
-            top: 21px;
-            left: 35px;
-            right: 35px;
-            height: 1px;
-            border-top: 1px dashed #B8A996;
-            z-index: 1;
+
+        .step-cell {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 15px 20px;
+            background: transparent;
+            border-right: 2px solid #1A1C1E;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .step-item {
+
+        .step-cell:last-child {
+            border-right: none;
+        }
+
+        .step-cell .step-num {
+            font-size: 10px;
+            font-family: 'Roboto Mono', monospace;
+            color: #1A1C1E;
+            opacity: 0.3;
+            margin-bottom: 4px;
+        }
+
+        .step-cell .step-title {
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #1A1C1E;
+            opacity: 0.3;
+        }
+
+        .step-cell.active {
+            background-color: #B82E12;
+            border-bottom: none;
+        }
+
+        .step-cell.active .step-num {
+            color: #FFFFFF;
+            opacity: 0.6;
+        }
+
+        .step-cell.active .step-title {
+            color: #FFFFFF;
+            opacity: 1;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            z-index: 2;
-            text-decoration: none;
-            width: 33.33%;
-        }
-        .step-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #FFF;
-            border: 2px solid #A1A8B0;
-            border-radius: 50%;
-            margin-bottom: 6px;
-            transition: all 0.3s ease;
-        }
-        .step-item span {
-            color: #A1A8B0;
-            font-weight: 600;
-            transition: color 0.3s;
-            text-align: center;
-            font-size: 10px;
-        }
-        .step-item.current .step-dot {
-            background-color: #B82E12;
-            border-color: #B82E12;
-            box-shadow: 0 0 0 3px rgba(184,46,18,0.2);
-        }
-        .step-item.current span {
-            color: #B82E12;
-            font-weight: 700;
         }
 
-        /* 3. ПЛАКАТ — БЕЛЫЙ ЛИСТ С ТЁПЛОЙ ТЕНЬЮ */
-        .slide-container {
-            max-width: 650px;
-            width: 100%;
+        .poster-wrapper {
             position: relative;
-            background: #FFFFFF;
-            box-shadow: 0 12px 60px rgba(0,0,0,0.15);
-            margin: 16px auto 0 auto;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border: 2px solid #1A1C1E;
+            border-radius: 4px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
         }
-        .responsive-img {
+
+        .hero-poster {
             width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
-            pointer-events: none;
         }
 
-        /* 4. КНОПКА-ТРИГГЕР */
-        .clickable-zone {
+        /* АЛАЯ CTA-ЛЕНТА */
+        .cta-ribbon-button {
             position: absolute;
-            bottom: 4.8%;
-            left: 31%;
-            width: 38%;
-            height: 4.5%;
-            display: block;
+            bottom: 6.8%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background-color: #B82E12;
+            color: #FFFFFF;
+            text-decoration: none;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            padding: 18px 0;
+            box-sizing: border-box;
+            border: 3px solid #1A1C1E;
+            box-shadow: 0 8px 0 #1A1C1E;
+            text-transform: uppercase;
+            transition: all 0.1s ease;
             cursor: pointer;
         }
 
-        /* 5. ФУТЕР (без изменений) */
+        .cta-ribbon-button:hover {
+            background-color: #A3240D;
+            transform: translateX(-50%) translateY(2px);
+            box-shadow: 0 6px 0 #1A1C1E;
+        }
+
+        .cta-ribbon-button:active {
+            transform: translateX(-50%) translateY(8px);
+            box-shadow: 0 0 0 #1A1C1E;
+        }
+
+        /* ФУТЕР */
         .premium-footer {
             width: 100%;
-            max-width: 650px;
+            max-width: 800px;
             box-sizing: border-box;
             background: #1A1D1F;
             padding: 24px 20px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            margin-top: 24px;
             margin-bottom: 40px;
         }
+
         .footer-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
+
         .footer-logo-link {
             display: flex;
             align-items: center;
             text-decoration: none;
             transition: opacity 0.2s;
         }
+
         .footer-logo-link img {
             height: 24px;
             width: auto;
             display: block;
         }
+
         .footer-logo-link:hover { opacity: 0.85; }
+
         .footer-copyright {
             font-size: 10px;
             font-weight: 500;
             color: #71777E;
         }
+
         .footer-legal-shield {
             font-size: 9px;
             line-height: 1.5;
@@ -225,6 +265,7 @@
             padding-top: 12px;
             text-align: justify;
         }
+
         .footer-expert-tag {
             font-size: 9px;
             font-weight: 600;
@@ -234,30 +275,44 @@
             display: block;
         }
 
-        @media (max-width: 768px) {
-            body { background-image: none; background-color: #F8F9FA; }
-            .slide-container, .top-bar, .step-nav, .premium-footer {
-                max-width: 100%;
-                box-shadow: none;
-                margin-top: 0;
-                margin-bottom: 0;
-                border-radius: 0;
+        @media (max-width: 600px) {
+            .cta-ribbon-button {
+                font-size: 14px;
+                padding: 12px 0;
+                border: 2px solid #1A1C1E;
+                box-shadow: 0 5px 0 #1A1C1E;
+                bottom: 6.5%;
             }
-            .top-bar { font-size: 7.5px; padding: 10px 8px; flex-direction: column; gap: 4px; text-align: center; }
-            .step-nav { padding: 12px 4px; }
-            .step-nav::before { top: 17px; left: 20px; right: 20px; }
-            .step-dot { width: 4px; height: 4px; margin-bottom: 4px; }
-            .step-item span { font-size: 8px; }
-            .premium-footer { padding: 20px 12px; margin-top: 16px; }
-            .footer-logo-link img { height: 20px; }
-            .footer-copyright { font-size: 9px; }
-            .slide-container { margin-top: 0; }
+            .main-container {
+                padding: 20px 10px;
+            }
+            .step-cell {
+                padding: 10px 12px;
+            }
+            .step-cell .step-title {
+                font-size: 13px;
+            }
+            .pulse-line {
+                padding: 6px 12px;
+            }
+            .pulse-text {
+                font-size: 9px;
+            }
+            .voice-header {
+                margin-top: 0;
+            }
+            .premium-footer {
+                padding: 20px 12px;
+                margin-bottom: 0;
+            }
         }
 
         @media print {
-            body, .top-bar, .step-nav, .slide-container, .premium-footer { display: none !important; }
+            body, .voice-header, .main-container, .premium-footer {
+                display: none !important;
+            }
             html::after {
-                content: "МАТЕРИАЛ ЗАЩИЩЕН АВТОРСКИМ ПРАВОМ. ПЕЧАТЬ ЗАПРЕЩЕНА.";
+                content: "МАТЕРИАЛ ЗАЩИЩЕН. ПЕЧАТЬ ЗАПРЕЩЕНА.";
                 font-family: 'Inter', sans-serif;
                 font-size: 14px;
                 color: #B82E12;
@@ -274,31 +329,39 @@
 </head>
 <body>
 
-    <div class="top-bar">
-        <div class="project-title">АУДИТ ПРЕЗЕНТАЦИОННЫХ ПРОЦЕССОВ</div>
-        <div class="session-status">● ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
-    </div>
-
-    <div class="step-nav">
-        <div class="step-item current">
-            <div class="step-dot"></div>
-            <span>ВИДЕТЬ</span>
+    <!-- ХЕДЕР (ШАГ 1: ВИДЕТЬ — АКТИВЕН) -->
+    <header class="voice-header">
+        <div class="pulse-line">
+            <span class="pulse-text">VOICE // НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
+            <span class="pulse-dot"></span>
         </div>
-        <div class="step-item">
-            <div class="step-dot"></div>
-            <span>ГОВОРИТЬ</span>
-        </div>
-        <div class="step-item">
-            <div class="step-dot"></div>
-            <span>ВЛИЯТЬ</span>
-        </div>
-    </div>
+        <nav class="steps-table">
+            <div class="step-cell active">
+                <span class="step-num">01</span>
+                <span class="step-title">ВИДЕТЬ</span>
+            </div>
+            <div class="step-cell">
+                <span class="step-num">02</span>
+                <span class="step-title">ГОВОРИТЬ</span>
+            </div>
+            <div class="step-cell">
+                <span class="step-num">03</span>
+                <span class="step-title">ВЛИЯТЬ</span>
+            </div>
+        </nav>
+    </header>
 
-    <div class="slide-container">
-        <img src="hero-voice.png" alt="4 ночных кошмара" class="responsive-img">
-        <a href="form1.html" class="clickable-zone" title="Выйти из тупика"></a>
-    </div>
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="main-container">
+        <div class="poster-wrapper">
+            <img src="hero-voice.png" alt="4 ночных кошмара PowerPoint" class="hero-poster">
+            <a href="form1.html" class="cta-ribbon-button" data-metric="start_voice">
+                ВЫЙТИ ИЗ ТУПИКА ➔
+            </a>
+        </div>
+    </main>
 
+    <!-- ФУТЕР -->
     <footer class="premium-footer">
         <div class="footer-top-row">
             <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
@@ -313,7 +376,10 @@
     </footer>
 
     <script>
+        // БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ
         document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // БЛОКИРОВКА ГОРЯЧИХ КЛАВИШ
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
