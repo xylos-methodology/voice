@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Яндекс Метрика -->
     <script type="text/javascript">
@@ -33,7 +34,6 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
-        /* КИБЕРЗАЩИТА: БЛОКИРОВКА ВЫДЕЛЕНИЯ */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -42,7 +42,6 @@
             -webkit-touch-callout: none;
         }
 
-        /* ОБЩИЕ СТИЛИ */
         body {
             margin: 0;
             padding: 0;
@@ -56,14 +55,14 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* МАРКЕРНЫЙ ХЕДЕР */
+        /* ХЕДЕР (МАРКЕРНЫЙ СТИЛЬ) */
         .voice-header {
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
             box-sizing: border-box;
             background: transparent;
             user-select: none;
-            margin-bottom: 20px;
+            margin: 20px auto 0 auto;
             padding: 0 20px;
         }
 
@@ -80,7 +79,6 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 11px;
             letter-spacing: 1px;
-            font-weight: 500;
         }
 
         .pulse-dot {
@@ -102,7 +100,7 @@
             display: flex;
             width: 100%;
             justify-content: space-between;
-            padding: 20px 0;
+            padding: 15px 0;
             box-sizing: border-box;
         }
 
@@ -113,7 +111,6 @@
             justify-content: center;
             padding: 10px 20px;
             box-sizing: border-box;
-            flex: 1;
         }
 
         .step-cell .step-num {
@@ -124,22 +121,19 @@
         }
 
         .step-cell .step-title {
-            font-size: 18px;
+            font-size: 24px;
             font-family: 'Special Elite', serif;
             color: #1A1C1E;
-            opacity: 0.4;
+            opacity: 0.3;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
         }
 
-        /* АКТИВНЫЙ МАРКЕРНЫЙ СТИЛЬ */
         .step-cell.active .step-title {
             font-family: 'Permanent Marker', cursive;
-            font-size: 28px;
+            font-size: 32px;
             color: #B82E12;
             opacity: 1;
             transform: rotate(-3deg);
-            text-shadow: none;
         }
 
         .step-cell.active .step-num {
@@ -151,22 +145,19 @@
         /* ОСНОВНОЙ КОНТЕЙНЕР */
         .main-container {
             width: 100%;
-            max-width: 800px;
-            padding: 0 20px 40px 20px;
+            max-width: 1000px;
+            padding: 10px 20px 40px 20px;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0 auto;
         }
 
         .poster-wrapper {
             position: relative;
             width: 100%;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            border: 2px solid #1A1C1E;
+            border: none;
             border-radius: 4px;
             overflow: hidden;
-            font-family: 'Inter', sans-serif;
         }
 
         .hero-poster {
@@ -175,44 +166,28 @@
             display: block;
         }
 
-        /* АЛАЯ CTA-ЛЕНТА */
-        .cta-ribbon-button {
+        /* ПРОЗРАЧНАЯ ЗОНА КЛИКА (HOTSPOT) */
+        .poster-hotspot-link {
             position: absolute;
             bottom: 6.8%;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            background-color: #B82E12;
-            color: #FFFFFF;
-            text-decoration: none;
-            text-align: center;
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            padding: 18px 0;
-            box-sizing: border-box;
-            border: 3px solid #1A1C1E;
-            box-shadow: 0 8px 0 #1A1C1E;
-            text-transform: uppercase;
-            transition: all 0.1s ease;
+            width: 48%;
+            height: 4.8%;
+            background-color: rgba(184, 46, 18, 0.0);
+            border: none;
             cursor: pointer;
+            transition: background-color 0.2s ease;
         }
 
-        .cta-ribbon-button:hover {
-            background-color: #A3240D;
-            transform: translateX(-50%) translateY(2px);
-            box-shadow: 0 6px 0 #1A1C1E;
-        }
-
-        .cta-ribbon-button:active {
-            transform: translateX(-50%) translateY(8px);
-            box-shadow: 0 0 0 #1A1C1E;
+        .poster-hotspot-link:hover {
+            background-color: rgba(184, 46, 18, 0.1);
         }
 
         /* ФУТЕР */
         .premium-footer {
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
             box-sizing: border-box;
             background: #1A1D1F;
             padding: 24px 20px;
@@ -269,35 +244,33 @@
         }
 
         @media (max-width: 600px) {
-            .cta-ribbon-button {
-                font-size: 14px;
-                padding: 12px 0;
-                border: 2px solid #1A1C1E;
-                box-shadow: 0 5px 0 #1A1C1E;
-                bottom: 6.5%;
-            }
-            .main-container {
-                padding: 0 10px 20px 10px;
-            }
             .voice-header {
                 padding: 0 10px;
-                margin-bottom: 0;
+                margin-top: 10px;
             }
             .step-cell {
-                padding: 10px 5px;
+                padding: 5px 8px;
             }
             .step-cell .step-title {
-                font-size: 14px;
+                font-size: 18px;
             }
             .step-cell.active .step-title {
-                font-size: 20px;
+                font-size: 24px;
+            }
+            .main-container {
+                padding: 5px 10px 20px 10px;
+            }
+            .poster-hotspot-link {
+                bottom: 6.5%;
+                width: 55%;
+                height: 4.5%;
+            }
+            .premium-footer {
+                padding: 16px 12px;
+                margin-bottom: 0;
             }
             .pulse-text {
                 font-size: 9px;
-            }
-            .premium-footer {
-                padding: 20px 12px;
-                margin-bottom: 0;
             }
         }
 
@@ -347,9 +320,7 @@
     <main class="main-container">
         <div class="poster-wrapper">
             <img src="hero-voice.png" alt="4 ночных кошмара PowerPoint" class="hero-poster">
-            <a href="form1.html" class="cta-ribbon-button" data-metric="start_voice">
-                ВЫЙТИ ИЗ ТУПИКА ➔
-            </a>
+            <a href="form1.html" class="poster-hotspot-link" aria-label="Выйти из тупика"></a>
         </div>
     </main>
 
@@ -368,6 +339,7 @@
 
     <script>
         document.addEventListener('contextmenu', e => e.preventDefault());
+
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
