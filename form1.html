@@ -1,48 +1,357 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Чекап рутины // Хроники ночных переделок</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Чекап рутины // Хроники ночных переделок</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('workspace-bg.jpg') repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ХЕДЕР */
+        .voice-header {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            background: transparent;
+            user-select: none;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .pulse-line {
+            background: transparent;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid #1A1C1E;
+        }
+
+        .pulse-text {
+            color: #1A1C1E;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #B82E12;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: blink-animation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes blink-animation {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        .steps-table {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: 25px 0;
+            box-sizing: border-box;
+        }
+
+        .step-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .step-cell .step-num {
+            font-size: 13px;
+            font-family: 'Roboto Mono', monospace;
+            color: #1A1C1E;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .step-cell .step-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 22px;
+            color: #1A1C1E;
+            opacity: 0.45;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        /* Стиль пройденного шага (ВИДЕТЬ) */
+        .step-cell.passed .step-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 26px;
+            color: #1A1C1E;
+            opacity: 0.35;
+            letter-spacing: -0.5px;
+            filter: blur(0.3px);
+        }
+
+        .step-cell.passed .step-num {
+            color: #1A1C1E;
+            opacity: 0.35;
+        }
+
+        .stamp-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .step-cell.passed .overlay-stamp {
+            position: absolute;
+            top: 15%;
+            left: -5px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 900;
+            color: #B82E12;
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 1px 4px;
+            border: 1px solid #B82E12;
+            transform: rotate(6deg);
+            box-sizing: border-box;
+            letter-spacing: 0px;
+            mix-blend-mode: multiply;
+        }
+
+        /* Активный шаг (ГОВОРИТЬ) */
+        .step-cell.active .step-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #B82E12;
+            opacity: 1;
+            transform: rotate(-2deg);
+            letter-spacing: -1px;
+            display: inline-block;
+        }
+
+        .step-cell.active .step-num {
+            color: #B82E12;
+            opacity: 1;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 5px 20px 40px 20px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .form-iframe-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .ya-b2b-iframe {
+            width: 100%;
+            min-height: 1850px;
+            border: none;
+            background: transparent;
+        }
+
+        /* БЛОК БЛАГОДАРНОСТИ (изначально скрыт) */
+        .thank-you-block {
+            display: none;
+            padding: 60px 40px;
+            text-align: center;
+            background: #FFFFFF;
+            border: 2px solid #1A1C1E;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .thank-you-block.visible {
+            display: block;
+        }
+
+        .thank-you-block h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 44px;
+            color: #B82E12;
+            margin-bottom: 16px;
+        }
+
+        .thank-you-block p {
+            font-size: 18px;
+            color: #1A1C1E;
+            margin-bottom: 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #B82E12;
+            color: #FFFFFF;
+            padding: 16px 40px;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid #1A1C1E;
+            box-shadow: 0 6px 0 #1A1C1E;
+            transition: all 0.1s ease;
+        }
+
+        .cta-button:hover {
+            background: #A3240D;
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #1A1C1E;
+        }
+
+        .cta-button:active {
+            transform: translateY(6px);
+            box-shadow: 0 0 0 #1A1C1E;
+        }
+
+        @media (max-width: 600px) {
+            .voice-header {
+                padding: 0 10px;
+                margin-top: 15px;
+            }
+            .pulse-text {
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+            .pulse-line {
+                padding: 8px 0;
+            }
+            .steps-table {
+                padding: 15px 0;
+            }
+            .step-cell .step-title {
+                font-size: 16px;
+            }
+            .step-cell.active .step-title {
+                font-size: 28px;
+            }
+            .step-cell.passed .step-title {
+                font-size: 18px;
+            }
+            .step-cell.passed .overlay-stamp {
+                font-size: 8px;
+                top: 5%;
+            }
+            .ya-b2b-iframe {
+                min-height: 2200px;
+            }
+            .thank-you-block {
+                padding: 30px 20px;
+            }
+            .thank-you-block h2 {
+                font-size: 28px;
+            }
+            .cta-button {
+                font-size: 18px;
+                padding: 12px 24px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header class="voice-header">
-    <div class="pulse-line">
-      <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
-      <span class="pulse-dot"></span>
-    </div>
-    <nav class="steps-table">
-      <div class="step-cell passed">
-        <span class="step-num">01</span>
-        <div class="stamp-container">
-          <span class="step-title">ВИДЕТЬ</span>
-          <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
+    <header class="voice-header">
+        <div class="pulse-line">
+            <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
+            <span class="pulse-dot"></span>
         </div>
-      </div>
-      <div class="step-cell active">
-        <span class="step-num">02</span>
-        <span class="step-title">ГОВОРИТЬ</span>
-      </div>
-      <div class="step-cell">
-        <span class="step-num">03</span>
-        <span class="step-title">ВЛИЯТЬ</span>
-      </div>
-    </nav>
-  </header>
+        <nav class="steps-table">
+            <div class="step-cell passed">
+                <span class="step-num">01</span>
+                <div class="stamp-container">
+                    <span class="step-title">ВИДЕТЬ</span>
+                    <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
+                </div>
+            </div>
+            <div class="step-cell active">
+                <span class="step-num">02</span>
+                <span class="step-title">ГОВОРИТЬ</span>
+            </div>
+            <div class="step-cell">
+                <span class="step-num">03</span>
+                <span class="step-title">ВЛИЯТЬ</span>
+            </div>
+        </nav>
+    </header>
 
-  <main class="main-container">
-    <div class="form-iframe-wrapper">
-      <iframe 
-        src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10" 
-        frameborder="0" 
-        name="ya-form-1" 
-        class="ya-b2b-iframe"
-        scrolling="no">
-      </iframe>
-    </div>
-  </main>
+    <main class="main-container">
+        <div class="form-iframe-wrapper" id="formWrapper">
+            <iframe 
+                src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10" 
+                frameborder="0" 
+                name="ya-form-1" 
+                class="ya-b2b-iframe"
+                id="yaForm"
+                scrolling="no">
+            </iframe>
+            <div class="thank-you-block" id="thankYouBlock">
+                <h2>ГОЛОС УСЛЫШАН</h2>
+                <p>Ваш голос услышан. Это поможет нам увидеть реальную картину.</p>
+                <a href="thank-you-1.html" class="cta-button">ПЕРЕЙТИ ДАЛЬШЕ ➔</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const iframe = document.getElementById('yaForm');
+        const thankYouBlock = document.getElementById('thankYouBlock');
+        const formWrapper = document.getElementById('formWrapper');
+
+        // Проверяем URL iframe каждые 2 секунды
+        const interval = setInterval(() => {
+            try {
+                const iframeUrl = iframe.contentWindow.location.href;
+                if (iframeUrl.includes('?sent=1') || iframeUrl.includes('thankyou')) {
+                    iframe.style.display = 'none';
+                    thankYouBlock.classList.add('visible');
+                    clearInterval(interval);
+                }
+            } catch (e) {
+                // Если доступ к URL iframe заблокирован, используем таймер
+                // Показываем блок благодарности через 10 секунд
+                setTimeout(() => {
+                    if (!thankYouBlock.classList.contains('visible')) {
+                        iframe.style.display = 'none';
+                        thankYouBlock.classList.add('visible');
+                    }
+                    clearInterval(interval);
+                }, 10000);
+            }
+        }, 2000);
+    </script>
 
 </body>
 </html>
