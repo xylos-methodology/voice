@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>4 ночных кошмара</title>
+    <title>Независимый аудит коммуникаций</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
@@ -55,7 +55,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* ХЕДЕР — БРУТАЛЬНЫЙ МАРКЕРНЫЙ МАНУСКРИПТ */
+        /* ===== ХЕДЕР (МАРКЕРНЫЙ МАНУСКРИПТ) ===== */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -79,7 +79,7 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 13px;
             letter-spacing: 2px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .pulse-dot {
@@ -117,7 +117,7 @@
             font-size: 13px;
             font-family: 'Roboto Mono', monospace;
             color: #1A1C1E;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 5px;
         }
 
@@ -129,6 +129,7 @@
             letter-spacing: 2px;
         }
 
+        /* АКТИВНЫЙ ШАГ — АЛЫЙ МАРКЕР */
         .step-cell.active .step-title {
             font-family: 'Permanent Marker', cursive;
             font-size: 46px;
@@ -144,7 +145,7 @@
             font-weight: 900;
         }
 
-        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .main-container {
             width: 100%;
             max-width: 1000px;
@@ -186,7 +187,7 @@
             background-color: rgba(184, 46, 18, 0.1);
         }
 
-        /* ФУТЕР */
+        /* ===== ФУТЕР ===== */
         .premium-footer {
             width: 100%;
             max-width: 1000px;
@@ -212,11 +213,13 @@
             text-decoration: none;
             transition: opacity 0.2s;
         }
+
         .footer-logo-link img {
             height: 24px;
             width: auto;
             display: block;
         }
+
         .footer-logo-link:hover { opacity: 0.85; }
 
         .footer-copyright {
@@ -243,16 +246,23 @@
             display: block;
         }
 
+        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 600px) {
             .voice-header {
                 padding: 0 10px;
-                margin-top: 10px;
+                margin-top: 15px;
+            }
+            .step-cell {
+                padding: 0 5px;
             }
             .step-cell .step-title {
-                font-size: 22px;
+                font-size: 20px;
             }
             .step-cell.active .step-title {
-                font-size: 34px;
+                font-size: 28px;
+            }
+            .step-cell .step-num {
+                font-size: 10px;
             }
             .main-container {
                 padding: 5px 10px 20px 10px;
@@ -268,6 +278,7 @@
             }
             .pulse-text {
                 font-size: 9px;
+                letter-spacing: 1px;
             }
         }
 
@@ -293,6 +304,7 @@
 </head>
 <body>
 
+    <!-- ХЕДЕР -->
     <header class="voice-header">
         <div class="pulse-line">
             <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
@@ -314,6 +326,7 @@
         </nav>
     </header>
 
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main class="main-container">
         <div class="poster-wrapper">
             <img src="hero-voice.png" alt="4 ночных кошмара PowerPoint" class="hero-poster">
@@ -321,6 +334,7 @@
         </div>
     </main>
 
+    <!-- ФУТЕР -->
     <footer class="premium-footer">
         <div class="footer-top-row">
             <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
