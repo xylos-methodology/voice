@@ -1,291 +1,48 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Чекап рутины // Хроники ночных переделок</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- Яндекс Метрика (ID 111264603) -->
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111264603', 'ym');
-
-        ym(111264603, 'init', {
-            ssr: true,
-            webvisor: false,
-            clickmap: true,
-            ecommerce: "dataLayer",
-            referrer: document.referrer,
-            url: location.href,
-            accurateTrackBounce: true,
-            trackLinks: true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
-    <style>
-        * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background: url('workspace-bg.jpg') repeat;
-            background-size: cover;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .voice-header {
-            width: 100%;
-            max-width: 1000px;
-            box-sizing: border-box;
-            background: transparent;
-            user-select: none;
-            margin: 30px auto 0 auto;
-            padding: 0 20px;
-        }
-
-        .pulse-line {
-            background: transparent;
-            padding: 12px 0;
-            display: flex;
-            align-items: center;
-            border-bottom: 3px solid #1A1C1E;
-        }
-
-        .pulse-text {
-            color: #1A1C1E;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 13px;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #B82E12;
-            border-radius: 50%;
-            margin-left: 10px;
-            animation: blink-animation 1.5s infinite ease-in-out;
-        }
-
-        @keyframes blink-animation {
-            0% { opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-
-        .steps-table {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            padding: 25px 0;
-            box-sizing: border-box;
-        }
-
-        .step-cell {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-        }
-
-        .step-cell .step-num {
-            font-size: 13px;
-            font-family: 'Roboto Mono', monospace;
-            color: #1A1C1E;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .step-cell .step-title {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 22px;
-            color: #1A1C1E;
-            opacity: 0.45;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-
-        .stamp-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .step-cell.passed .step-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 26px;
-            color: #1A1C1E;
-            opacity: 0.35;
-            letter-spacing: -0.5px;
-            filter: blur(0.3px);
-        }
-
-        .step-cell.passed .overlay-stamp {
-            position: absolute;
-            top: 15%;
-            left: -5px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 11px;
-            font-weight: 900;
-            color: #B82E12;
-            background-color: rgba(255, 255, 255, 0.75);
-            padding: 1px 4px;
-            border: 1px solid #B82E12;
-            transform: rotate(6deg);
-            box-sizing: border-box;
-            letter-spacing: 0px;
-            mix-blend-mode: multiply;
-        }
-
-        .step-cell.passed .step-num {
-            color: #1A1C1E;
-            opacity: 0.35;
-        }
-
-        .step-cell.active .step-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 44px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #B82E12;
-            opacity: 1;
-            transform: rotate(-2deg);
-            letter-spacing: -1px;
-            display: inline-block;
-            filter: none;
-        }
-
-        .step-cell.active .step-num {
-            color: #B82E12;
-            opacity: 1;
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 1000px;
-            padding: 5px 20px 40px 20px;
-            box-sizing: border-box;
-            margin: 0 auto;
-        }
-
-        .form-iframe-wrapper {
-            width: 100%;
-            background: transparent;
-            display: flex;
-            justify-content: center;
-        }
-
-        .ya-b2b-iframe {
-            width: 100%;
-            min-height: 1850px;
-            background: transparent;
-            border: none;
-            overflow: hidden;
-        }
-
-        @media (max-width: 600px) {
-            .voice-header { padding: 0 10px; margin-top: 15px; }
-            .pulse-text { font-size: 10px; letter-spacing: 1px; }
-            .pulse-line { padding: 8px 0; }
-            .steps-table { padding: 15px 0; }
-            .step-cell .step-title { font-size: 16px; }
-            .step-cell.active .step-title { font-size: 28px; }
-            .step-cell .step-num { font-size: 10px; }
-            .main-container { padding: 5px 10px 20px 10px; }
-            .ya-b2b-iframe { min-height: 2200px; }
-            .step-cell.passed .step-title { font-size: 16px; }
-            .step-cell.passed .overlay-stamp { font-size: 8px; top: 5%; }
-        }
-
-        @media print {
-            body, .voice-header, .main-container, .premium-footer { display: none !important; }
-            html::after {
-                content: "МАТЕРИАЛ ЗАЩИЩЕН. ПЕЧАТЬ ЗАПРЕЩЕНА.";
-                font-family: 'Inter', sans-serif;
-                font-size: 14px;
-                color: #B82E12;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                text-align: center;
-                padding: 40px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чекап рутины // Хроники ночных переделок</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="voice-header">
-        <div class="pulse-line">
-            <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
-            <span class="pulse-dot"></span>
+  <header class="voice-header">
+    <div class="pulse-line">
+      <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
+      <span class="pulse-dot"></span>
+    </div>
+    <nav class="steps-table">
+      <div class="step-cell passed">
+        <span class="step-num">01</span>
+        <div class="stamp-container">
+          <span class="step-title">ВИДЕТЬ</span>
+          <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
         </div>
-        <nav class="steps-table">
-            <div class="step-cell passed">
-                <span class="step-num">01</span>
-                <div class="stamp-container">
-                    <span class="step-title">ВИДЕТЬ</span>
-                    <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
-                </div>
-            </div>
-            <div class="step-cell active">
-                <span class="step-num">02</span>
-                <span class="step-title">ГОВОРИТЬ</span>
-            </div>
-            <div class="step-cell">
-                <span class="step-num">03</span>
-                <span class="step-title">ВЛИЯТЬ</span>
-            </div>
-        </nav>
-    </header>
+      </div>
+      <div class="step-cell active">
+        <span class="step-num">02</span>
+        <span class="step-title">ГОВОРИТЬ</span>
+      </div>
+      <div class="step-cell">
+        <span class="step-num">03</span>
+        <span class="step-title">ВЛИЯТЬ</span>
+      </div>
+    </nav>
+  </header>
 
-    <main class="main-container">
-        <div class="form-iframe-wrapper">
-            <iframe 
-                src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10" 
-                frameborder="0" 
-                name="ya-form-1" 
-                class="ya-b2b-iframe"
-                scrolling="no">
-            </iframe>
-        </div>
-    </main>
+  <main class="main-container">
+    <div class="form-iframe-wrapper">
+      <iframe 
+        src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10" 
+        frameborder="0" 
+        name="ya-form-1" 
+        class="ya-b2b-iframe"
+        scrolling="no">
+      </iframe>
+    </div>
+  </main>
 
-    <script>
-        document.addEventListener('contextmenu', e => e.preventDefault());
-
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
-                e.preventDefault();
-                alert("Действие заблокировано политикой безопасности.");
-                return false;
-            }
-            if (e.keyCode === 123) { e.preventDefault(); return false; }
-        });
-    </script>
 </body>
 </html>
