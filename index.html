@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VOICE // Хроники ночных переделок</title>
+    <title>4 ночных кошмара</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -55,38 +55,39 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* ХЕДЕР (МАРКЕРНЫЙ СТИЛЬ) */
+        /* ХЕДЕР — БРУТАЛЬНЫЙ МАРКЕРНЫЙ МАНУСКРИПТ */
         .voice-header {
             width: 100%;
             max-width: 1000px;
             box-sizing: border-box;
             background: transparent;
             user-select: none;
-            margin: 20px auto 0 auto;
+            margin: 30px auto 0 auto;
             padding: 0 20px;
         }
 
         .pulse-line {
             background: transparent;
-            padding: 10px 0;
+            padding: 12px 0;
             display: flex;
             align-items: center;
-            border-bottom: 2px solid #1A1C1E;
+            border-bottom: 3px solid #1A1C1E;
         }
 
         .pulse-text {
             color: #1A1C1E;
             font-family: 'Roboto Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 1px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
 
         .pulse-dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: #B82E12;
             border-radius: 50%;
-            margin-left: 8px;
+            margin-left: 10px;
             animation: blink-animation 1.5s infinite ease-in-out;
         }
 
@@ -100,7 +101,7 @@
             display: flex;
             width: 100%;
             justify-content: space-between;
-            padding: 15px 0;
+            padding: 25px 0;
             box-sizing: border-box;
         }
 
@@ -109,44 +110,45 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 10px 20px;
-            box-sizing: border-box;
+            flex: 1;
         }
 
         .step-cell .step-num {
-            font-size: 11px;
+            font-size: 13px;
             font-family: 'Roboto Mono', monospace;
             color: #1A1C1E;
-            opacity: 0.5;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
 
         .step-cell .step-title {
-            font-size: 24px;
+            font-size: 32px;
             font-family: 'Special Elite', serif;
             color: #1A1C1E;
-            opacity: 0.3;
-            letter-spacing: 1px;
+            opacity: 0.45;
+            letter-spacing: 2px;
         }
 
         .step-cell.active .step-title {
             font-family: 'Permanent Marker', cursive;
-            font-size: 32px;
+            font-size: 46px;
             color: #B82E12;
             opacity: 1;
-            transform: rotate(-3deg);
+            transform: rotate(-4deg) scale(1.05);
+            display: inline-block;
         }
 
         .step-cell.active .step-num {
             color: #B82E12;
-            opacity: 0.8;
-            font-weight: bold;
+            opacity: 1;
+            font-weight: 900;
         }
 
         /* ОСНОВНОЙ КОНТЕЙНЕР */
         .main-container {
             width: 100%;
             max-width: 1000px;
-            padding: 10px 20px 40px 20px;
+            padding: 5px 20px 40px 20px;
             box-sizing: border-box;
             margin: 0 auto;
         }
@@ -166,7 +168,7 @@
             display: block;
         }
 
-        /* ПРОЗРАЧНАЯ ЗОНА КЛИКА (HOTSPOT) */
+        /* ПРОЗРАЧНАЯ ЗОНА КЛИКА */
         .poster-hotspot-link {
             position: absolute;
             bottom: 6.8%;
@@ -210,13 +212,11 @@
             text-decoration: none;
             transition: opacity 0.2s;
         }
-
         .footer-logo-link img {
             height: 24px;
             width: auto;
             display: block;
         }
-
         .footer-logo-link:hover { opacity: 0.85; }
 
         .footer-copyright {
@@ -248,14 +248,11 @@
                 padding: 0 10px;
                 margin-top: 10px;
             }
-            .step-cell {
-                padding: 5px 8px;
-            }
             .step-cell .step-title {
-                font-size: 18px;
+                font-size: 22px;
             }
             .step-cell.active .step-title {
-                font-size: 24px;
+                font-size: 34px;
             }
             .main-container {
                 padding: 5px 10px 20px 10px;
@@ -298,7 +295,7 @@
 
     <header class="voice-header">
         <div class="pulse-line">
-            <span class="pulse-text">VOICE // НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
+            <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
             <span class="pulse-dot"></span>
         </div>
         <nav class="steps-table">
