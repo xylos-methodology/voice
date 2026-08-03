@@ -10,7 +10,30 @@
     <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
+    <!-- Яндекс Метрика -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111264603', 'ym');
+
+        ym(111264603, 'init', {
+            ssr: true,
+            webvisor: false,
+            clickmap: true,
+            ecommerce: "dataLayer",
+            referrer: document.referrer,
+            url: location.href,
+            accurateTrackBounce: true,
+            trackLinks: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
     <style>
+        /* ЗАЩИТА И СБРОС */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -32,7 +55,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* ХЕДЕР */
+        /* ХЕДЕР (без изменений) */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -107,7 +130,6 @@
             font-weight: bold;
         }
 
-        /* Стиль пройденного шага (ВИДЕТЬ) */
         .step-cell.passed .step-title {
             font-family: 'Oswald', sans-serif;
             font-size: 26px;
@@ -144,7 +166,6 @@
             mix-blend-mode: multiply;
         }
 
-        /* Активный шаг (ГОВОРИТЬ) */
         .step-cell.active .step-title {
             font-family: 'Oswald', sans-serif;
             font-size: 44px;
@@ -171,72 +192,134 @@
             margin: 0 auto;
         }
 
-        .form-iframe-wrapper {
-            position: relative;
+        /* СЦЕНАРНЫЙ БЛОК (ВВОДНЫЙ ТЕКСТ И КАРТИНКА) */
+        .intro-text-block {
             width: 100%;
+            max-width: 750px;
+            margin: 0 auto 30px auto;
+            font-family: 'Roboto Mono', monospace;
+            color: #1A1C1E;
+        }
+
+        .manifesto-paragraph {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .manifesto-paragraph.subtitle {
+            font-weight: bold;
+            border-left: 3px solid #B82E12;
+            padding-left: 15px;
+        }
+
+        .manifesto-paragraph.call-to-action {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .scene-image-wrapper {
+            width: 100%;
+            max-width: 750px;
+            margin: 20px auto 30px auto;
+            text-align: center;
+        }
+
+        .scene-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 2px solid #1A1C1E;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .scene-caption {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            color: #B82E12;
+            margin: 12px 0 0 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ФОРМА (В САМОМ НИЗУ) */
+        .form-iframe-wrapper {
+            width: 100%;
+            margin-top: 40px;
+            border-top: 2px dashed #1A1C1E;
+            padding-top: 30px;
         }
 
         .ya-b2b-iframe {
             width: 100%;
-            min-height: 1850px;
-            border: none;
+            min-height: 950px;
             background: transparent;
+            border: none;
+            overflow: hidden;
         }
 
-        /* БЛОК БЛАГОДАРНОСТИ (изначально скрыт) */
-        .thank-you-block {
-            display: none;
-            padding: 60px 40px;
-            text-align: center;
-            background: #FFFFFF;
-            border: 2px solid #1A1C1E;
-            margin: 20px 0;
-            border-radius: 4px;
+        /* ФУТЕР */
+        .premium-footer {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            background: #1A1D1F;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+            margin-bottom: 40px;
         }
 
-        .thank-you-block.visible {
+        .footer-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer-logo-link img {
+            height: 24px;
+            width: auto;
             display: block;
         }
 
-        .thank-you-block h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 44px;
-            color: #B82E12;
-            margin-bottom: 16px;
+        .footer-logo-link:hover { opacity: 0.85; }
+
+        .footer-copyright {
+            font-size: 10px;
+            font-weight: 500;
+            color: #71777E;
         }
 
-        .thank-you-block p {
-            font-size: 18px;
-            color: #1A1C1E;
-            margin-bottom: 24px;
+        .footer-legal-shield {
+            font-size: 9px;
+            line-height: 1.5;
+            color: #53575A;
+            border-top: 1px solid #2F3336;
+            padding-top: 12px;
+            text-align: justify;
         }
 
-        .cta-button {
-            display: inline-block;
-            background: #B82E12;
-            color: #FFFFFF;
-            padding: 16px 40px;
-            text-decoration: none;
-            font-family: 'Oswald', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border: 2px solid #1A1C1E;
-            box-shadow: 0 6px 0 #1A1C1E;
-            transition: all 0.1s ease;
+        .footer-expert-tag {
+            font-size: 9px;
+            font-weight: 600;
+            color: #43474A;
+            text-align: right;
+            width: 100%;
+            display: block;
         }
 
-        .cta-button:hover {
-            background: #A3240D;
-            transform: translateY(2px);
-            box-shadow: 0 4px 0 #1A1C1E;
-        }
-
-        .cta-button:active {
-            transform: translateY(6px);
-            box-shadow: 0 0 0 #1A1C1E;
-        }
-
+        /* АДАПТИВНОСТЬ */
         @media (max-width: 600px) {
             .voice-header {
                 padding: 0 10px;
@@ -265,18 +348,52 @@
                 font-size: 8px;
                 top: 5%;
             }
-            .ya-b2b-iframe {
-                min-height: 2200px;
+            .main-container {
+                padding: 5px 10px 20px 10px;
             }
-            .thank-you-block {
-                padding: 30px 20px;
+            .intro-text-block {
+                max-width: 100%;
             }
-            .thank-you-block h2 {
-                font-size: 28px;
+            .manifesto-paragraph {
+                font-size: 14px;
             }
-            .cta-button {
+            .scene-caption {
                 font-size: 18px;
-                padding: 12px 24px;
+            }
+            .ya-b2b-iframe {
+                min-height: 1200px;
+            }
+            .form-iframe-wrapper {
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+            .premium-footer {
+                padding: 16px 12px;
+                margin-bottom: 0;
+            }
+            .footer-top-row {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+        }
+
+        @media print {
+            body, .voice-header, .main-container, .premium-footer {
+                display: none !important;
+            }
+            html::after {
+                content: "МАТЕРИАЛ ЗАЩИЩЕН. ПЕЧАТЬ ЗАПРЕЩЕНА.";
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                color: #B82E12;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                text-align: center;
+                padding: 40px;
             }
         }
     </style>
@@ -308,49 +425,58 @@
     </header>
 
     <main class="main-container">
-        <div class="form-iframe-wrapper" id="formWrapper">
+
+        <!-- 1. ТЕКСТ-ВВЕДЕНИЕ -->
+        <section class="intro-text-block">
+            <p class="manifesto-paragraph">Презентация — это инструмент защиты стратегий и бюджетов. Но почему сильное содержание, готовое на 120%, регулярно проигрывает из-за слабой подачи?</p>
+            <p class="manifesto-paragraph">Почему эксперты ночами работают верстальщиками, выравнивая элементы на слайдах, а ИИ вместо скорости масштабирует хаос?</p>
+            <p class="manifesto-paragraph subtitle">Мы запускаем анонимное исследование, чтобы найти выход из этого тупика процессов. Нам нужны честные факты, чтобы изменить культуру, где субъективная „красивость“ подменяет логику и смысл.</p>
+            <p class="manifesto-paragraph call-to-action">Ответьте честно. Это занимет 2 минуты. Полная анонимность. Мы не передаем данные — только агрегированную статистику.</p>
+        </section>
+
+        <!-- 2. КАРТИНКА-ТРИГГЕР -->
+        <div class="scene-image-wrapper">
+            <img src="hero-voice.png" alt="Ты эксперт или верстальщик в 23:00?" class="scene-img">
+            <h3 class="scene-caption">Ты эксперт или верстальщик в 23:00?</h3>
+        </div>
+
+        <!-- 3. ФОРМА (В САМОМ НИЗУ) -->
+        <div class="form-iframe-wrapper">
             <iframe 
-                src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10" 
+                src="https://forms.yandex.com/cloud/6a636ae5e010db82edcfac10?embed=1" 
                 frameborder="0" 
                 name="ya-form-1" 
                 class="ya-b2b-iframe"
-                id="yaForm"
                 scrolling="no">
             </iframe>
-            <div class="thank-you-block" id="thankYouBlock">
-                <h2>ГОЛОС УСЛЫШАН</h2>
-                <p>Ваш голос услышан. Это поможет нам увидеть реальную картину.</p>
-                <a href="thank-you-1.html" class="cta-button">ПЕРЕЙТИ ДАЛЬШЕ ➔</a>
-            </div>
         </div>
+
     </main>
 
-    <script>
-        const iframe = document.getElementById('yaForm');
-        const thankYouBlock = document.getElementById('thankYouBlock');
-        const formWrapper = document.getElementById('formWrapper');
+    <footer class="premium-footer">
+        <div class="footer-top-row">
+            <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
+                <img src="logo-footer.png" alt="Ксайлос">
+            </a>
+            <div class="footer-copyright">© 2026 Учебный центр Ксайлос. Все права защищены.</div>
+        </div>
+        <div class="footer-legal-shield">
+            Материалы страницы являются объектом интеллектуальной собственности. Любое копирование, тиражирование или распространение контента без письменного согласия правообладателя влечет за собой административную и уголовную ответственность согласно законодательству РФ.
+        </div>
+        <div class="footer-expert-tag">Разработано методологическим бюро SlideCraft Pro для Ксайлос</div>
+    </footer>
 
-        // Проверяем URL iframe каждые 2 секунды
-        const interval = setInterval(() => {
-            try {
-                const iframeUrl = iframe.contentWindow.location.href;
-                if (iframeUrl.includes('?sent=1') || iframeUrl.includes('thankyou')) {
-                    iframe.style.display = 'none';
-                    thankYouBlock.classList.add('visible');
-                    clearInterval(interval);
-                }
-            } catch (e) {
-                // Если доступ к URL iframe заблокирован, используем таймер
-                // Показываем блок благодарности через 10 секунд
-                setTimeout(() => {
-                    if (!thankYouBlock.classList.contains('visible')) {
-                        iframe.style.display = 'none';
-                        thankYouBlock.classList.add('visible');
-                    }
-                    clearInterval(interval);
-                }, 10000);
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
+                e.preventDefault();
+                alert("Действие заблокировано политикой безопасности.");
+                return false;
             }
-        }, 2000);
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+        });
     </script>
 
 </body>
