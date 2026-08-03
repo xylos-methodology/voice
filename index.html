@@ -2,11 +2,340 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Голос сотрудников</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Голос сотрудников — 4 ночных кошмара</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Яндекс Метрика (ВСТАВЬТЕ СЮДА ВАШ НОВЫЙ ID, КОГДА ПОЛУЧИТЕ) -->
+    <!--
+    <script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j=0; j<document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t), a=e.getElementsByTagName(t)[0], k.async=1, k.src=r, a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(ВАШ_НОВЫЙ_ID, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: false // ВЕБВИЗОР ОТКЛЮЧЁН ДЛЯ АНОНИМНОСТИ
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/ВАШ_НОВЫЙ_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    -->
+
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            background-image: url('workspace-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1. ШАПКА С ПУЛЬСОМ */
+        .top-bar {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            padding: 10px 16px;
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E6E9ED;
+            margin-top: 20px;
+        }
+        .top-bar .project-title { font-weight: 700; color: #1A1D1F; letter-spacing: 0.15em; }
+        .top-bar .session-status {
+            font-weight: 600;
+            color: #108548;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .top-bar .session-status::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background-color: #108548;
+            border-radius: 50%;
+            display: inline-block;
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* 2. НАВИГАЦИЯ (3 шага: ВИДЕТЬ → ГОВОРИТЬ → ВЛИЯТЬ) */
+        .step-nav {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: #F1F3F5;
+            padding: 16px 16px;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #DDE1E5;
+            position: relative;
+        }
+        .step-nav::before {
+            content: "";
+            position: absolute;
+            top: 21px;
+            left: 35px;
+            right: 35px;
+            height: 1px;
+            border-top: 1px dashed #CDD2D7;
+            z-index: 1;
+        }
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            width: 33.33%;
+        }
+        .step-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #FFF;
+            border: 2px solid #A1A8B0;
+            border-radius: 50%;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+        .step-item span {
+            color: #A1A8B0;
+            font-weight: 600;
+            transition: color 0.3s;
+            text-align: center;
+            font-size: 10px;
+        }
+        .step-item.current .step-dot {
+            background-color: #B82E12;
+            border-color: #B82E12;
+            box-shadow: 0 0 0 3px rgba(184,46,18,0.2);
+        }
+        .step-item.current span {
+            color: #B82E12;
+            font-weight: 700;
+        }
+
+        /* 3. КОНТЕЙНЕР С ПЛАКАТОМ */
+        .slide-container {
+            max-width: 650px;
+            width: 100%;
+            position: relative;
+            background: #FFFFFF;
+            box-shadow: 0 12px 60px rgba(0,0,0,0.2);
+            margin: 16px auto 0 auto;
+        }
+        .responsive-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            pointer-events: none;
+        }
+
+        /* 4. КНОПКА-ТРИГГЕР (ВЕДЁТ НА FORM1) */
+        .clickable-zone {
+            position: absolute;
+            bottom: 4.8%;
+            left: 31%;
+            width: 38%;
+            height: 4.5%;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* 5. ФУТЕР */
+        .premium-footer {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: #1A1D1F;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+            margin-bottom: 40px;
+        }
+        .footer-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .footer-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .footer-logo-link img {
+            height: 24px;
+            width: auto;
+            display: block;
+        }
+        .footer-logo-link:hover { opacity: 0.85; }
+        .footer-copyright {
+            font-size: 10px;
+            font-weight: 500;
+            color: #71777E;
+        }
+        .footer-legal-shield {
+            font-size: 9px;
+            line-height: 1.5;
+            color: #53575A;
+            border-top: 1px solid #2F3336;
+            padding-top: 12px;
+            text-align: justify;
+        }
+        .footer-expert-tag {
+            font-size: 9px;
+            font-weight: 600;
+            color: #43474A;
+            text-align: right;
+            width: 100%;
+            display: block;
+        }
+        .footer-privacy-note {
+            font-size: 9px;
+            line-height: 1.5;
+            color: #75B629;
+            border-top: 1px solid #2F3336;
+            padding-top: 12px;
+            text-align: justify;
+        }
+
+        @media (max-width: 768px) {
+            body { background-image: none; background-color: #F8F9FA; }
+            .slide-container, .top-bar, .step-nav, .premium-footer {
+                max-width: 100%;
+                box-shadow: none;
+                margin-top: 0;
+                margin-bottom: 0;
+                border-radius: 0;
+            }
+            .top-bar { font-size: 7.5px; padding: 10px 8px; flex-direction: column; gap: 4px; text-align: center; }
+            .step-nav { padding: 12px 4px; }
+            .step-nav::before { top: 17px; left: 20px; right: 20px; }
+            .step-dot { width: 4px; height: 4px; margin-bottom: 4px; }
+            .step-item span { font-size: 8px; }
+            .premium-footer { padding: 20px 12px; margin-top: 16px; }
+            .footer-logo-link img { height: 20px; }
+            .footer-copyright { font-size: 9px; }
+            .slide-container { margin-top: 0; }
+        }
+
+        @media print {
+            body, .top-bar, .step-nav, .slide-container, .premium-footer { display: none !important; }
+            html::after {
+                content: "МАТЕРИАЛ ЗАЩИЩЕН АВТОРСКИМ ПРАВОМ. ПЕЧАТЬ ЗАПРЕЩЕНА.";
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                color: #B82E12;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                text-align: center;
+                padding: 40px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Привет! Это тестовая страница.</h1>
-    <p>Скоро здесь появится сайт «Голос сотрудников».</p>
+
+    <!-- ШАПКА -->
+    <div class="top-bar">
+        <div class="project-title">АУДИТ ПРЕЗЕНТАЦИОННЫХ ПРОЦЕССОВ</div>
+        <div class="session-status">● ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
+    </div>
+
+    <!-- НАВИГАЦИЯ (3 шага, текущий — ВИДЕТЬ) -->
+    <div class="step-nav">
+        <div class="step-item current">
+            <div class="step-dot"></div>
+            <span>ВИДЕТЬ</span>
+        </div>
+        <div class="step-item">
+            <div class="step-dot"></div>
+            <span>ГОВОРИТЬ</span>
+        </div>
+        <div class="step-item">
+            <div class="step-dot"></div>
+            <span>ВЛИЯТЬ</span>
+        </div>
+    </div>
+
+    <!-- ПЛАКАТ -->
+    <div class="slide-container">
+        <img src="hero-voice.png" alt="4 ночных кошмара" class="responsive-img">
+        <a href="form1.html" class="clickable-zone" title="Выйти из тупика"></a>
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer class="premium-footer">
+        <div class="footer-top-row">
+            <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
+                <img src="logo-footer.png" alt="Ксайлос">
+            </a>
+            <div class="footer-copyright">© 2026 Учебный центр Ксайлос. Все права защищены.</div>
+        </div>
+        <div class="footer-legal-shield">
+            Материалы страницы являются объектом интеллектуальной собственности. Любое копирование, тиражирование или распространение контента без письменного согласия правообладателя влечет за собой административную и уголовную ответственность согласно законодательству РФ.
+        </div>
+        <div class="footer-privacy-note">
+            🔒 Опрос развернут на внешнем независимом репозитории GitHub. Сбор персональных данных и логов внутренней сети компании технически заблокирован. Ваша безопасность гарантирована ИТ-архитектурой исследования.
+        </div>
+        <div class="footer-expert-tag">Разработано методологическим бюро SlideCraft Pro для Ксайлос</div>
+    </footer>
+
+    <script>
+        // БЛОКИРОВКА ПКМ
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // БЛОКИРОВКА КЛАВИШ
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
+                e.preventDefault();
+                alert("Действие заблокировано политикой безопасности.");
+                return false;
+            }
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+        });
+    </script>
 </body>
 </html>
