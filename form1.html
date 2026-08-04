@@ -1,45 +1,462 @@
-<script>
-    (function() {
-        // Точная ссылка на Мост №1
-        const THANK_YOU_URL = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
-        
-        // Получаем iframe с формой
-        const iframe = document.querySelector('.ya-b2b-iframe');
-        let isRedirecting = false;
-        let checkInterval = null;
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Чекап рутины // Хроники ночных переделок</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
-        function redirectToThankYou() {
-            if (isRedirecting) return;
-            isRedirecting = true;
-            if (checkInterval) clearInterval(checkInterval);
-            window.location.href = THANK_YOU_URL;
+    <!-- Яндекс Метрика -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111264603', 'ym');
+
+        ym(111264603, 'init', {
+            ssr: true,
+            webvisor: false,
+            clickmap: true,
+            ecommerce: "dataLayer",
+            referrer: document.referrer,
+            url: location.href,
+            accurateTrackBounce: true,
+            trackLinks: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <style>
+        /* ПОЛНАЯ ЗАЩИТА */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
 
-        if (!iframe) return;
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-image: url('workspace-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
 
-        // Запоминаем исходный URL формы
-        const originalSrc = iframe.src;
+        /* ХЕДЕР */
+        .voice-header {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            background: transparent;
+            user-select: none;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
 
-        // Проверяем URL iframe каждые 300 мс
-        checkInterval = setInterval(function() {
-            try {
-                // Пытаемся получить текущий URL iframe
-                const currentUrl = iframe.contentWindow.location.href;
-                
-                // Если URL изменился и больше не содержит адрес формы Яндекса
-                // (значит, форма обновилась после отправки)
-                if (currentUrl !== originalSrc && !currentUrl.includes('forms.yandex.ru')) {
+        .pulse-line {
+            background: transparent;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid #1A1C1E;
+        }
+
+        .pulse-text {
+            color: #1A1C1E;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #B82E12;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: blink-animation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes blink-animation {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        .steps-table {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: 25px 0;
+            box-sizing: border-box;
+        }
+
+        .step-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .step-cell .step-num {
+            font-size: 13px;
+            font-family: 'Roboto Mono', monospace;
+            color: #1A1C1E;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .step-cell .step-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 22px;
+            color: #1A1C1E;
+            opacity: 0.45;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .step-cell.passed .step-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 26px;
+            color: #1A1C1E;
+            opacity: 0.35;
+            letter-spacing: -0.5px;
+            filter: blur(0.3px);
+        }
+
+        .step-cell.passed .step-num {
+            color: #1A1C1E;
+            opacity: 0.35;
+        }
+
+        .stamp-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .step-cell.passed .overlay-stamp {
+            position: absolute;
+            top: 15%;
+            left: -5px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 900;
+            color: #B82E12;
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 1px 4px;
+            border: 1px solid #B82E12;
+            transform: rotate(6deg);
+            box-sizing: border-box;
+            letter-spacing: 0px;
+            mix-blend-mode: multiply;
+        }
+
+        .step-cell.active .step-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #B82E12;
+            opacity: 1;
+            transform: rotate(-2deg);
+            letter-spacing: -1px;
+            display: inline-block;
+        }
+
+        .step-cell.active .step-num {
+            color: #B82E12;
+            opacity: 1;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 5px 20px 40px 20px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        /* КОНТЕЙНЕР ФОРМЫ — КАК В KEY (650px, центрирован) */
+        .iframe-container {
+            max-width: 650px;
+            width: 100%;
+            padding: 0 0 20px 0;
+            box-sizing: border-box;
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        iframe {
+            width: 100%;
+            border: none;
+            display: block;
+            min-height: 600px;
+        }
+
+        /* ПАРЯЩИЙ ЩИТ */
+        .floating-anti-yandex-shield {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 42px;
+            background-color: #F8F9FA;
+            z-index: 99999;
+            pointer-events: none;
+            border-top: 1px solid #F8F9FA;
+        }
+
+        /* ФУТЕР */
+        .premium-footer {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            background: #1A1D1F;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+            margin-bottom: 40px;
+        }
+
+        .footer-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer-logo-link img {
+            height: 24px;
+            width: auto;
+            display: block;
+        }
+
+        .footer-logo-link:hover { opacity: 0.85; }
+
+        .footer-copyright {
+            font-size: 10px;
+            font-weight: 500;
+            color: #71777E;
+        }
+
+        .footer-legal-shield {
+            font-size: 9px;
+            line-height: 1.5;
+            color: #53575A;
+            border-top: 1px solid #2F3336;
+            padding-top: 12px;
+            text-align: justify;
+        }
+
+        .footer-expert-tag {
+            font-size: 9px;
+            font-weight: 600;
+            color: #43474A;
+            text-align: right;
+            width: 100%;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .voice-header {
+                padding: 0 10px;
+                margin-top: 15px;
+            }
+            .pulse-text {
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+            .pulse-line {
+                padding: 8px 0;
+            }
+            .steps-table {
+                padding: 15px 0;
+            }
+            .step-cell .step-title {
+                font-size: 16px;
+            }
+            .step-cell.active .step-title {
+                font-size: 28px;
+            }
+            .step-cell.passed .step-title {
+                font-size: 18px;
+            }
+            .step-cell.passed .overlay-stamp {
+                font-size: 8px;
+                top: 5%;
+            }
+            .main-container {
+                padding: 5px 10px 20px 10px;
+            }
+            .iframe-container {
+                max-width: 100%;
+                padding: 0 0 20px 0;
+            }
+            iframe {
+                min-height: 500px;
+            }
+            .floating-anti-yandex-shield {
+                height: 36px;
+            }
+            .premium-footer {
+                padding: 16px 12px;
+                margin-bottom: 0;
+            }
+            .footer-top-row {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+        }
+
+        @media print {
+            body, .voice-header, .main-container, .premium-footer {
+                display: none !important;
+            }
+            html::after {
+                content: "МАТЕРИАЛ ЗАЩИЩЕН. ПЕЧАТЬ ЗАПРЕЩЕНА.";
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                color: #B82E12;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                text-align: center;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="voice-header">
+        <div class="pulse-line">
+            <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: LIVE</span>
+            <span class="pulse-dot"></span>
+        </div>
+        <nav class="steps-table">
+            <div class="step-cell passed">
+                <span class="step-num">01</span>
+                <div class="stamp-container">
+                    <span class="step-title">ВИДЕТЬ</span>
+                    <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
+                </div>
+            </div>
+            <div class="step-cell active">
+                <span class="step-num">02</span>
+                <span class="step-title">ГОВОРИТЬ</span>
+            </div>
+            <div class="step-cell">
+                <span class="step-num">03</span>
+                <span class="step-title">ВЛИЯТЬ</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="iframe-container">
+            <script src="https://forms.yandex.ru/_static/embed.js"></script>
+            <iframe 
+                src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10?iframe=1" 
+                frameborder="0" 
+                name="ya-form-6a636ae5e010db82edcfac10" 
+                class="ya-b2b-iframe"
+                width="100%">
+            </iframe>
+        </div>
+        <div class="floating-anti-yandex-shield"></div>
+    </main>
+
+    <footer class="premium-footer">
+        <div class="footer-top-row">
+            <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
+                <img src="logo-footer.png" alt="Ксайлос">
+            </a>
+            <div class="footer-copyright">© 2026 Учебный центр Ксайлос. Все права защищены.</div>
+        </div>
+        <div class="footer-legal-shield">
+            Материалы страницы являются объектом интеллектуальной собственности. Любое копирование, тиражирование или распространение контента без письменного согласия правообладателя влечет за собой административную и уголовную ответственность согласно законодательству РФ.
+        </div>
+        <div class="footer-expert-tag">Разработано методологическим бюро SlideCraft Pro для Ксайлос</div>
+    </footer>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
+                e.preventDefault();
+                alert("Действие заблокировано политикой безопасности.");
+                return false;
+            }
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+        });
+
+        // ========== ПЕРЕХВАТ ОТПРАВКИ ФОРМЫ (РЕШЕНИЕ 1) ==========
+        (function() {
+            const THANK_YOU_URL = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
+            const iframe = document.querySelector('.ya-b2b-iframe');
+            let isRedirecting = false;
+            let checkInterval = null;
+
+            if (!iframe) return;
+
+            const originalSrc = iframe.src;
+
+            function redirectToThankYou() {
+                if (isRedirecting) return;
+                isRedirecting = true;
+                if (checkInterval) clearInterval(checkInterval);
+                window.location.href = THANK_YOU_URL;
+            }
+
+            checkInterval = setInterval(function() {
+                try {
+                    const currentUrl = iframe.contentWindow.location.href;
+                    if (currentUrl !== originalSrc && !currentUrl.includes('forms.yandex.ru')) {
+                        redirectToThankYou();
+                    }
+                } catch (e) {
                     redirectToThankYou();
                 }
-            } catch (e) {
-                // При кросс-доменной ошибке (которая возникает при смене URL)
-                // мы также считаем, что форма отправлена
-                redirectToThankYou();
-            }
-        }, 300);
+            }, 300);
+        })();
+    </script>
 
-        // Дополнительная страховка: если через 10 секунд ничего не сработало,
-        // но пользователь уже нажал "Отправить" — мы не знаем об этом.
-        // В таком случае ничего не делаем.
-    })();
-</script>
+</body>
+</html>
