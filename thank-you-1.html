@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ты не один // Хроники ночных переделок</title>
+    <title>Мост // Хроники ночных переделок</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
     <!-- Яндекс Метрика -->
@@ -197,87 +198,87 @@
             margin: 0 auto;
         }
 
-        /* СТРАНИЦА-МОСТ (БЛАГОДАРНОСТЬ №1) */
-        .bridge-container {
-            background: #FFFFFF;
-            border: 2px solid #1A1C1E;
-            border-radius: 4px;
-            padding: 40px 40px 50px 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            text-align: left;
-            max-width: 750px;
-            margin: 0 auto;
+        /* СЦЕНА МОСТА (БЕЗ БЕЛОЙ КОРОБКИ) */
+        .bridge-scene {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 40px;
         }
 
-        .bridge-container .bridge-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 44px;
-            font-weight: 700;
-            color: #B82E12;
-            margin: 0 0 16px 0;
-            line-height: 1.1;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        .bridge-container .bridge-sub {
-            font-size: 20px;
-            font-weight: 600;
+        /* ГРУБЫЙ МАРКЕРНЫЙ СТУК В ДВЕРЬ */
+        .sound-knock {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 54px;
             color: #1A1C1E;
-            margin: 0 0 20px 0;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            transform: rotate(-1.5deg);
+            animation: shake-knock 2s infinite ease-in-out;
         }
 
-        .bridge-container .bridge-text {
+        @keyframes shake-knock {
+            0%, 100% { transform: rotate(-1.5deg) scale(1); }
+            50% { transform: rotate(-1deg) scale(1.03); color: #B82E12; }
+        }
+
+        /* РЕЧЬ ГЕРОЯ — ПРЯМО НА КРАФТЕ */
+        .hero-speech-bubble {
+            max-width: 650px;
+            background: rgba(26, 28, 30, 0.05);
+            border: 3px dashed #1A1C1E;
+            padding: 25px 35px;
+            margin-bottom: 40px;
+            position: relative;
+            transform: rotate(1deg);
+        }
+
+        .hero-speech-bubble p {
+            font-family: 'Roboto Mono', monospace;
             font-size: 18px;
+            font-weight: bold;
+            line-height: 1.6;
+            color: #B82E12;
+            margin: 0;
+        }
+
+        /* ТЕКСТ КОНТЕКСТА */
+        .bridge-context-text {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
             line-height: 1.6;
             color: #1A1C1E;
-            margin: 0 0 24px 0;
+            max-width: 700px;
+            margin-bottom: 40px;
+            opacity: 0.8;
         }
 
-        .bridge-container .bridge-dialogue {
-            background: #F1F3F5;
-            padding: 24px 28px;
-            border-left: 4px solid #B82E12;
-            margin: 0 0 32px 0;
-            font-size: 18px;
-            line-height: 1.7;
-            font-style: italic;
-            color: #1A1C1E;
-        }
-
-        .bridge-container .bridge-dialogue strong {
-            font-style: normal;
-            font-weight: 700;
-            color: #B82E12;
-        }
-
-        .cta-button-bridge {
+        /* БРУТАЛЬНАЯ КНОПКА-ЛЕНТА */
+        .xerox-ribbon-button {
             display: inline-block;
-            background: #B82E12;
+            background-color: #B82E12;
             color: #FFFFFF;
-            padding: 18px 48px;
             text-decoration: none;
             font-family: 'Oswald', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            padding: 16px 40px;
             border: 3px solid #1A1C1E;
             box-shadow: 0 8px 0 #1A1C1E;
+            text-transform: uppercase;
             transition: all 0.1s ease;
-            letter-spacing: 1px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 8px;
+            cursor: pointer;
         }
 
-        .cta-button-bridge:hover {
-            background: #A3240D;
+        .xerox-ribbon-button:hover {
+            background-color: #A3240D;
             transform: translateY(2px);
             box-shadow: 0 6px 0 #1A1C1E;
         }
 
-        .cta-button-bridge:active {
+        .xerox-ribbon-button:active {
             transform: translateY(8px);
             box-shadow: 0 0 0 #1A1C1E;
         }
@@ -373,22 +374,23 @@
             .main-container {
                 padding: 5px 10px 20px 10px;
             }
-            .bridge-container {
-                padding: 24px 16px 30px 16px;
+            .sound-knock {
+                font-size: 32px;
             }
-            .bridge-container .bridge-title {
-                font-size: 28px;
-            }
-            .bridge-container .bridge-text {
+            .hero-speech-bubble p {
                 font-size: 16px;
             }
-            .bridge-container .bridge-dialogue {
-                font-size: 16px;
-                padding: 16px 18px;
+            .hero-speech-bubble {
+                padding: 16px 20px;
+                max-width: 90%;
             }
-            .cta-button-bridge {
-                font-size: 20px;
-                padding: 14px 24px;
+            .bridge-context-text {
+                font-size: 12px;
+                max-width: 90%;
+            }
+            .xerox-ribbon-button {
+                font-size: 16px;
+                padding: 12px 24px;
             }
             .premium-footer {
                 padding: 16px 12px;
@@ -447,21 +449,21 @@
         </nav>
     </header>
 
-    <main class="main-container">
-        <div class="bridge-container">
-            <div class="bridge-title">ГОЛОС УСЛЫШАН</div>
-            <div class="bridge-sub">Вы сделали первый шаг. Теперь — самый важный.</div>
+    <main class="main-container bridge-scene">
+        <div class="sound-knock">* ТУК - ТУК - ТУК *</div>
 
-            <div class="bridge-text">
-                Короткие ответы помогают увидеть масштаб. Но настоящие изменения рождаются из деталей. Расскажите, что на самом деле происходит за кулисами. Ваш развёрнутый ответ — это не жалоба, а архитектура будущих решений.
-            </div>
+        <div class="hero-speech-bubble">
+            <p>«Да, входите!.. А, это ты? <br>Заходи, присаживайся. Я тут совсем застрял с этими слайдами...»</p>
+        </div>
 
-            <div class="bridge-dialogue">
-                <strong>Да, входите!.. А, это ты?</strong> Заходи, присаживайся. Я тут совсем застрял с этими слайдами...
-            </div>
+        <div class="bridge-context-text">
+            Короткие ответы помогли увидеть масштаб. Но настоящие изменения рождаются из деталей. <br>
+            Пора рассказать, что на самом деле происходит за кулисами ночной рутины.
+        </div>
 
-            <a href="form2.html" class="cta-button-bridge">
-                ЗАЙТИ И ВЫПИТЬ КОФЕ С КОЛЛЕГОЙ ➔
+        <div class="button-wrapper">
+            <a href="form2.html" class="xerox-ribbon-button">
+                [ ЗАЙТИ И ВЫПИТЬ КОФЕ С КОЛЛЕГОЙ ➔ ]
             </a>
         </div>
     </main>
