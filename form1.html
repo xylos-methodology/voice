@@ -197,6 +197,7 @@
             margin: 0 auto;
         }
 
+        /* КОНТЕЙНЕР ФОРМЫ — КАК В KEY (650px) */
         .iframe-container {
             max-width: 650px;
             width: 100%;
@@ -216,6 +217,7 @@
             min-height: 600px;
         }
 
+        /* ПАРЯЩИЙ ЩИТ */
         .floating-anti-yandex-shield {
             position: fixed;
             bottom: 0;
@@ -228,6 +230,7 @@
             border-top: 1px solid #F8F9FA;
         }
 
+        /* ФУТЕР */
         .premium-footer {
             width: 100%;
             max-width: 1000px;
@@ -417,35 +420,6 @@
             }
             if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
-
-        // ========== СКРИПТ ПЕРЕХВАТА ОТПРАВКИ ФОРМЫ ==========
-        (function() {
-            const iframe = document.querySelector('.iframe-container iframe');
-            let isRedirecting = false;
-
-            function redirectToThankYou() {
-                if (isRedirecting) return;
-                isRedirecting = true;
-                window.location.href = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
-            }
-
-            if (iframe) {
-                // Проверяем URL каждые 500 мс
-                const originalSrc = iframe.src;
-                setInterval(function() {
-                    try {
-                        const currentUrl = iframe.contentWindow.location.href;
-                        // Если URL изменился и не содержит forms.yandex.ru (т.е. форма отправлена)
-                        if (currentUrl !== originalSrc && !currentUrl.includes('forms.yandex.ru')) {
-                            redirectToThankYou();
-                        }
-                    } catch (e) {
-                        // При кросс-доменной ошибке мы перехватываем момент отправки
-                        redirectToThankYou();
-                    }
-                }, 500);
-            }
-        })();
     </script>
 </body>
 </html>
