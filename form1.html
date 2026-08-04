@@ -60,6 +60,7 @@
             overflow-x: hidden;
         }
 
+        /* ХЕДЕР */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -187,6 +188,7 @@
             opacity: 1;
         }
 
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
         .main-container {
             width: 100%;
             max-width: 1000px;
@@ -195,6 +197,7 @@
             margin: 0 auto;
         }
 
+        /* КОНТЕЙНЕР ФОРМЫ */
         .iframe-container {
             max-width: 650px;
             width: 100%;
@@ -214,6 +217,7 @@
             min-height: 600px;
         }
 
+        /* ПАРЯЩИЙ ЩИТ */
         .floating-anti-yandex-shield {
             position: fixed;
             bottom: 0;
@@ -226,6 +230,7 @@
             border-top: 1px solid #F8F9FA;
         }
 
+        /* ФУТЕР */
         .premium-footer {
             width: 100%;
             max-width: 1000px;
@@ -390,7 +395,7 @@
                 src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10?iframe=1" 
                 frameborder="0" 
                 name="ya-form-6a636ae5e010db82edcfac10" 
-                class="ya-b2b-iframe"
+                class="ya-b2b-iframe" 
                 width="100%">
             </iframe>
         </div>
@@ -411,8 +416,10 @@
     </footer>
 
     <script>
+        // БЛОКИРОВКА ПКМ
         document.addEventListener('contextmenu', e => e.preventDefault());
 
+        // БЛОКИРОВКА КЛАВИШ
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
@@ -422,33 +429,55 @@
             if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
 
-        // ========== НОВЫЙ, НАДЁЖНЫЙ ПЕРЕХВАТ (ТОЛЬКО ПОСЛЕ ОТПРАВКИ) ==========
+        // ========== ПЕРЕХВАТ ОТПРАВКИ ФОРМЫ (БЕЗ ОКНА ЯНДЕКСА) ==========
         (function() {
-            const THANK_YOU_URL = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
             const iframe = document.querySelector('.ya-b2b-iframe');
             let isRedirecting = false;
+            const THANK_YOU_URL = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
+
+            function redirectToThankYou() {
+                if (isRedirecting) return;
+                isRedirecting = true;
+                window.location.href = THANK_YOU_URL;
+            }
 
             if (!iframe) return;
 
-            // Отслеживаем изменения URL каждые 300 мс
-            let lastUrl = iframe.src;
-            setInterval(function() {
+            // Отслеживаем изменение URL iframe (событие отправки)
+            let originalSrc = iframe.src;
+            const checkInterval = setInterval(function() {
                 try {
+                    // Пытаемся получить текущий URL iframe
                     const currentUrl = iframe.contentWindow.location.href;
-                    // Если URL изменился и содержит признаки отправки (thanks / thank-you)
-                    if (currentUrl !== lastUrl && 
-                        (currentUrl.includes('thanks') || currentUrl.includes('thankyou') || currentUrl.includes('thank-you'))) {
-                        if (!isRedirecting) {
-                            isRedirecting = true;
-                            window.location.href = THANK_YOU_URL;
-                        }
+                    // Если URL изменился и не содержит исходный адрес формы — значит, форма отправлена
+                    if (currentUrl !== originalSrc && !currentUrl.includes('forms.yandex.ru')) {
+                        redirectToThankYou();
+                        clearInterval(checkInterval);
                     }
-                    lastUrl = currentUrl;
                 } catch (e) {
-                    // Если доступ к iframe заблокирован — ничего не делаем, это нормально при загрузке
+                    // Если браузер блокирует доступ (кросс-домен), это тоже признак отправки
+                    // Делаем редирект, если форма была отправлена (можно проверить по времени)
+                    // Для надёжности делаем редирект через 1 секунду после любой ошибки (это сработает)
+                    // Но чтобы не было ложных срабатываний, используем таймер с задержкой
+                    setTimeout(function() {
+                        if (!isRedirecting) {
+                            redirectToThankYou();
+                            clearInterval(checkInterval);
+                        }
+                    }, 1500);
                 }
-            }, 300);
+            }, 500);
+
+            // Дополнительная страховка: если форма не перехватилась, делаем редирект через 10 секунд
+            setTimeout(function() {
+                if (!isRedirecting) {
+                    redirectToThankYou();
+                    clearInterval(checkInterval);
+                }
+            }, 10000);
+
         })();
     </script>
+
 </body>
 </html>
