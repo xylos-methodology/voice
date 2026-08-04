@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
-    <link href="https://googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
     <!-- Яндекс Метрика -->
@@ -193,78 +192,67 @@
         .main-container {
             width: 100%;
             max-width: 1000px;
-            padding: 5px 20px 40px 20px;
+            padding: 15px 20px 40px 20px;
             box-sizing: border-box;
             margin: 0 auto;
         }
 
-        /* СЦЕНА МОСТА (БЕЗ БЕЛОЙ КОРОБКИ) */
-        .bridge-scene {
+        /* СЦЕНА МОСТА */
+        .bridge-layout {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            padding-top: 40px;
+            width: 100%;
         }
 
-        /* ГРУБЫЙ МАРКЕРНЫЙ СТУК В ДВЕРЬ */
-        .sound-knock {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 54px;
-            color: #1A1C1E;
-            letter-spacing: 4px;
-            margin-bottom: 30px;
-            transform: rotate(-1.5deg);
-            animation: shake-knock 2s infinite ease-in-out;
-        }
-
-        @keyframes shake-knock {
-            0%, 100% { transform: rotate(-1.5deg) scale(1); }
-            50% { transform: rotate(-1deg) scale(1.03); color: #B82E12; }
-        }
-
-        /* РЕЧЬ ГЕРОЯ — ПРЯМО НА КРАФТЕ */
-        .hero-speech-bubble {
-            max-width: 650px;
-            background: rgba(26, 28, 30, 0.05);
-            border: 3px dashed #1A1C1E;
-            padding: 25px 35px;
-            margin-bottom: 40px;
+        .comic-frame {
             position: relative;
-            transform: rotate(1deg);
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 40px;
         }
 
-        .hero-speech-bubble p {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 1.6;
-            color: #B82E12;
-            margin: 0;
+        .comic-img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        /* ТЕКСТ КОНТЕКСТА */
-        .bridge-context-text {
+        /* НАЛОЖЕНИЕ ТЕКСТА ПОВЕРХ БАБЛА */
+        .bubble-text-overlay {
+            position: absolute;
+            top: 4.5%;
+            left: 17.5%;
+            width: 22%;
             font-family: 'Roboto Mono', monospace;
             font-size: 14px;
-            line-height: 1.6;
+            font-weight: 700;
+            line-height: 1.5;
             color: #1A1C1E;
-            max-width: 700px;
-            margin-bottom: 40px;
-            opacity: 0.8;
+            text-align: center;
+            user-select: none;
+            box-sizing: border-box;
         }
 
-        /* БРУТАЛЬНАЯ КНОПКА-ЛЕНТА */
+        /* КНОПКА */
+        .button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
         .xerox-ribbon-button {
             display: inline-block;
             background-color: #B82E12;
             color: #FFFFFF;
             text-decoration: none;
             font-family: 'Oswald', sans-serif;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 900;
             letter-spacing: 1px;
-            padding: 16px 40px;
+            padding: 18px 45px;
             border: 3px solid #1A1C1E;
             box-shadow: 0 8px 0 #1A1C1E;
             text-transform: uppercase;
@@ -343,6 +331,14 @@
             display: block;
         }
 
+        @media (max-width: 800px) {
+            .bubble-text-overlay {
+                font-size: 1.7vw;
+                top: 5%;
+                left: 17.2%;
+            }
+        }
+
         @media (max-width: 600px) {
             .voice-header {
                 padding: 0 10px;
@@ -374,23 +370,16 @@
             .main-container {
                 padding: 5px 10px 20px 10px;
             }
-            .sound-knock {
-                font-size: 32px;
-            }
-            .hero-speech-bubble p {
-                font-size: 16px;
-            }
-            .hero-speech-bubble {
-                padding: 16px 20px;
-                max-width: 90%;
-            }
-            .bridge-context-text {
-                font-size: 12px;
-                max-width: 90%;
-            }
             .xerox-ribbon-button {
-                font-size: 16px;
-                padding: 12px 24px;
+                font-size: 14px;
+                padding: 12px 25px;
+                box-shadow: 0 5px 0 #1A1C1E;
+            }
+            .bubble-text-overlay {
+                font-size: 2.2vw;
+                top: 4.8%;
+                left: 16.5%;
+                width: 24%;
             }
             .premium-footer {
                 padding: 16px 12px;
@@ -449,19 +438,17 @@
         </nav>
     </header>
 
-    <main class="main-container bridge-scene">
-        <div class="sound-knock">* ТУК - ТУК - ТУК *</div>
-
-        <div class="hero-speech-bubble">
-            <p>«Да, входите!.. А, это ты? <br>Заходи, присаживайся. Я тут совсем застрял с этими слайдами...»</p>
+    <main class="main-container bridge-layout">
+        <div class="comic-frame">
+            <img src="bridge-scene.png" alt="Да, входите! Я тут застрял со слайдами..." class="comic-img" loading="lazy">
+            <div class="bubble-text-overlay">
+                Да, входите!.. А, это ты? <br>
+                Заходи, присаживайся. <br>
+                Я тут совсем застрял <br>
+                с этими слайдами...
+            </div>
         </div>
-
-        <div class="bridge-context-text">
-            Короткие ответы помогли увидеть масштаб. Но настоящие изменения рождаются из деталей. <br>
-            Пора рассказать, что на самом деле происходит за кулисами ночной рутины.
-        </div>
-
-        <div class="button-wrapper">
+        <div class="button-container">
             <a href="form2.html" class="xerox-ribbon-button">
                 [ ЗАЙТИ И ВЫПИТЬ КОФЕ С КОЛЛЕГОЙ ➔ ]
             </a>
