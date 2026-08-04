@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Сессия завершена // Хроники ночных переделок</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Яндекс Метрика -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111264603', 'ym');
+
+        ym(111264603, 'init', {
+            ssr: true,
+            webvisor: false,
+            clickmap: true,
+            ecommerce: "dataLayer",
+            referrer: document.referrer,
+            url: location.href,
+            accurateTrackBounce: true,
+            trackLinks: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/111264603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <style>
+        /* ЗАЩИТА И СБРОС */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-image: url('workspace-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* ХЕДЕР — ФИНАЛЬНЫЙ, СТАТУС «АРХИВ ВЫГРУЖЕН» */
+        .voice-header {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            background: transparent;
+            user-select: none;
+            margin: 30px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .pulse-line {
+            background: transparent;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid #1A1C1E;
+        }
+
+        .pulse-text {
+            color: #1A1C1E;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #1A1C1E; /* Чёрная статичная точка вместо алой */
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: none; /* Мигание отключено */
+            opacity: 0.8;
+        }
+
+        .steps-table {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: 25px 0;
+            box-sizing: border-box;
+        }
+
+        .step-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .step-cell .step-num {
+            font-size: 13px;
+            font-family: 'Roboto Mono', monospace;
+            color: #1A1C1E;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* ВСЕ ТРИ ШАГА — В РЕЖИМЕ «ПРОЙДЕН» (ЗАПЕЧАТАНЫ) */
+        .step-cell.passed .step-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 26px;
+            color: #1A1C1E;
+            opacity: 0.35;
+            letter-spacing: -0.5px;
+            filter: blur(0.3px);
+        }
+
+        .step-cell.passed .step-num {
+            color: #1A1C1E;
+            opacity: 0.35;
+        }
+
+        .stamp-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .step-cell.passed .overlay-stamp {
+            position: absolute;
+            top: 15%;
+            left: -5px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            font-weight: 900;
+            color: #B82E12;
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 1px 4px;
+            border: 1px solid #B82E12;
+            transform: rotate(6deg);
+            box-sizing: border-box;
+            letter-spacing: 0px;
+            mix-blend-mode: multiply;
+        }
+
+        /* ШТАМП ДЛЯ ШАГА 03 — ИНВЕРСИЯ (АЛАЯ ПЕЧАТЬ С БЕЛЫМ ТЕКСТОМ) */
+        .step-cell.passed .overlay-stamp.red-stamp {
+            background-color: #B82E12;
+            color: #FFFFFF;
+            border: 1px solid #B82E12;
+            mix-blend-mode: normal;
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 5px 20px 40px 20px;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        /* ФИНАЛЬНЫЙ БЛОК — ТЕКСТОВЫЙ ДОКУМЕНТ НА КРАФТЕ */
+        .final-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .final-card-document {
+            width: 100%;
+            max-width: 800px;
+            font-family: 'Roboto Mono', monospace;
+            color: #1A1C1E;
+            text-align: left;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .archive-index-tag {
+            font-size: 11px;
+            color: #6B7280;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .final-title-head {
+            font-family: 'Oswald', sans-serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #1A1C1E;
+            margin: 0 0 35px 0;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #1A1C1E;
+            padding-bottom: 15px;
+        }
+
+        .final-paragraph {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .final-paragraph.font-bold {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .final-paragraph.highlight-box {
+            border-left: 4px solid #B82E12;
+            padding-left: 20px;
+            font-weight: bold;
+            color: #B82E12;
+            opacity: 1;
+        }
+
+        .final-paragraph-sub {
+            font-size: 13px;
+            color: #6B7280;
+            margin-top: 45px;
+            border-top: 1px dashed #1A1C1E;
+            padding-top: 20px;
+        }
+
+        /* ФУТЕР */
+        .premium-footer {
+            width: 100%;
+            max-width: 1000px;
+            box-sizing: border-box;
+            background: #1A1D1F;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+            margin-bottom: 40px;
+        }
+
+        .footer-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer-logo-link img {
+            height: 24px;
+            width: auto;
+            display: block;
+        }
+
+        .footer-logo-link:hover { opacity: 0.85; }
+
+        .footer-copyright {
+            font-size: 10px;
+            font-weight: 500;
+            color: #71777E;
+        }
+
+        .footer-legal-shield {
+            font-size: 9px;
+            line-height: 1.5;
+            color: #53575A;
+            border-top: 1px solid #2F3336;
+            padding-top: 12px;
+            text-align: justify;
+        }
+
+        .footer-expert-tag {
+            font-size: 9px;
+            font-weight: 600;
+            color: #43474A;
+            text-align: right;
+            width: 100%;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .voice-header {
+                padding: 0 10px;
+                margin-top: 15px;
+            }
+            .pulse-text {
+                font-size: 10px;
+                letter-spacing: 1px;
+            }
+            .pulse-line {
+                padding: 8px 0;
+            }
+            .steps-table {
+                padding: 15px 0;
+            }
+            .step-cell .step-title {
+                font-size: 18px;
+            }
+            .step-cell.passed .overlay-stamp {
+                font-size: 8px;
+                top: 5%;
+            }
+            .main-container {
+                padding: 5px 10px 20px 10px;
+            }
+            .final-layout {
+                padding: 15px 10px 40px 10px;
+            }
+            .final-title-head {
+                font-size: 24px;
+                margin-bottom: 25px;
+            }
+            .final-paragraph.font-bold {
+                font-size: 15px;
+            }
+            .final-paragraph {
+                font-size: 13px;
+            }
+            .premium-footer {
+                padding: 16px 12px;
+                margin-bottom: 0;
+            }
+            .footer-top-row {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+        }
+
+        @media print {
+            body, .voice-header, .main-container, .premium-footer {
+                display: none !important;
+            }
+            html::after {
+                content: "МАТЕРИАЛ ЗАЩИЩЕН. ПЕЧАТЬ ЗАПРЕЩЕНА.";
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                color: #B82E12;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                text-align: center;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ЗАПЕЧАТАННЫЙ ФИНАЛЬНЫЙ ХЕДЕР -->
+    <header class="voice-header">
+        <div class="pulse-line">
+            <span class="pulse-text">НЕЗАВИСИМЫЙ АУДИТ КОММУНИКАЦИЙ // СТАТУС: АРХИВ ВЫГРУЖЕН</span>
+            <span class="pulse-dot"></span>
+        </div>
+        <nav class="steps-table">
+            <!-- ШАГ 01: ВИДЕТЬ — ЗАФИКСИРОВАНО -->
+            <div class="step-cell passed">
+                <span class="step-num">01</span>
+                <div class="stamp-container">
+                    <span class="step-title">ВИДЕТЬ</span>
+                    <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
+                </div>
+            </div>
+            <!-- ШАГ 02: ГОВОРИТЬ — ВЫГРУЖЕНО -->
+            <div class="step-cell passed">
+                <span class="step-num">02</span>
+                <div class="stamp-container">
+                    <span class="step-title">ГОВОРИТЬ</span>
+                    <span class="overlay-stamp">ВЫГРУЖЕНО</span>
+                </div>
+            </div>
+            <!-- ШАГ 03: ВЛИЯТЬ — ГОЛОС ПРИНЯТ (АЛАЯ ПЕЧАТЬ) -->
+            <div class="step-cell passed">
+                <span class="step-num">03</span>
+                <div class="stamp-container">
+                    <span class="step-title">ВЛИЯТЬ</span>
+                    <span class="overlay-stamp red-stamp">ГОЛОС ПРИНЯТ</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ЦЕНТРАЛЬНЫЙ БЛОК ЗАВЕРШЕНИЯ -->
+    <main class="main-container final-layout">
+        <div class="final-card-document">
+            <div class="archive-index-tag">[ DOC_REF: VOICE-2026-FINAL ]</div>
+
+            <h1 class="final-title-head">СЕССИЯ УСПЕШНО ЗАВЕРШЕНА.</h1>
+
+            <section class="final-text-manifesto">
+                <p class="final-paragraph font-bold">Ваш интерес к целевому изменению презентационных процессов зафиксирован в системе внутренней b2b-аналитики.</p>
+
+                <p class="final-paragraph">Обезличенные данные аудита рутины на местах и общая статистика заинтересованности сотрудников будут переданы руководству компании для принятия решения о запуске проекта независимой диагностики.</p>
+
+                <p class="final-paragraph highlight-box">
+                    Первое подтверждающее письмо со сквозными b2b-метриками исследования уже отправлено на вашу почту. Проверьте ваш рабочий email в течение 5 минут.
+                </p>
+
+                <p class="final-paragraph-sub">Вкладку браузера можно безопасно закрыть. Спасибо, что меняете правила вместе с нами.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- ФУТЕР -->
+    <footer class="premium-footer">
+        <div class="footer-top-row">
+            <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
+                <img src="logo-footer.png" alt="Ксайлос">
+            </a>
+            <div class="footer-copyright">© 2026 Учебный центр Ксайлос. Все права защищены.</div>
+        </div>
+        <div class="footer-legal-shield">
+            Материалы страницы являются объектом интеллектуальной собственности. Любое копирование, тиражирование или распространение контента без письменного согласия правообладателя влечет за собой административную и уголовную ответственность согласно законодательству РФ.
+        </div>
+        <div class="footer-expert-tag">Разработано методологическим бюро SlideCraft Pro для Ксайлос</div>
+    </footer>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
+                e.preventDefault();
+                alert("Действие заблокировано политикой безопасности.");
+                return false;
+            }
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+        });
+    </script>
+</body>
+</html>
