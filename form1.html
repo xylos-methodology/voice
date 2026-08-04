@@ -197,7 +197,6 @@
             margin: 0 auto;
         }
 
-        /* КОНТЕЙНЕР ФОРМЫ */
         .iframe-container {
             max-width: 650px;
             width: 100%;
@@ -217,7 +216,6 @@
             min-height: 600px;
         }
 
-        /* ПАРЯЩИЙ ЩИТ */
         .floating-anti-yandex-shield {
             position: fixed;
             bottom: 0;
@@ -230,7 +228,6 @@
             border-top: 1px solid #F8F9FA;
         }
 
-        /* ФУТЕР */
         .premium-footer {
             width: 100%;
             max-width: 1000px;
@@ -391,13 +388,7 @@
     <main class="main-container">
         <div class="iframe-container">
             <script src="https://forms.yandex.ru/_static/embed.js"></script>
-            <iframe 
-                src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10?iframe=1" 
-                frameborder="0" 
-                name="ya-form-6a636ae5e010db82edcfac10" 
-                id="yaForm"
-                width="100%">
-            </iframe>
+            <iframe src="https://forms.yandex.ru/cloud/6a636ae5e010db82edcfac10?iframe=1" frameborder="0" name="ya-form-6a636ae5e010db82edcfac10" width="100%"></iframe>
         </div>
         <div class="floating-anti-yandex-shield"></div>
     </main>
@@ -416,42 +407,6 @@
     </footer>
 
     <script>
-        // БЕСШОВНЫЙ ПЕРЕХОД НА МОСТ №1 ПОСЛЕ ОТПРАВКИ ФОРМЫ
-        (function() {
-            const iframe = document.getElementById('yaForm');
-            let isRedirecting = false;
-
-            function redirectToThankYou() {
-                if (isRedirecting) return;
-                isRedirecting = true;
-                window.location.href = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
-            }
-
-            if (iframe) {
-                // Проверяем изменение URL каждые 300 мс
-                const checkInterval = setInterval(function() {
-                    try {
-                        const currentUrl = iframe.contentWindow.location.href;
-                        // Если URL изменился и больше не содержит форму — значит, отправка произошла
-                        if (currentUrl && !currentUrl.includes('forms.yandex.ru/cloud/6a636ae5e010db82edcfac10')) {
-                            clearInterval(checkInterval);
-                            redirectToThankYou();
-                        }
-                    } catch (e) {
-                        // При кросс-доменной ошибке мы всё равно перехватываем отправку
-                        clearInterval(checkInterval);
-                        redirectToThankYou();
-                    }
-                }, 300);
-
-                // Дополнительная страховка: если через 10 секунд ничего не произошло — ничего не делаем
-                setTimeout(function() {
-                    clearInterval(checkInterval);
-                }, 10000);
-            }
-        })();
-
-        // ЗАЩИТА ОТ КОПИРОВАНИЯ
         document.addEventListener('contextmenu', e => e.preventDefault());
 
         document.addEventListener('keydown', function(e) {
@@ -462,6 +417,35 @@
             }
             if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
+
+        // ========== СКРИПТ ПЕРЕХВАТА ОТПРАВКИ ФОРМЫ ==========
+        (function() {
+            const iframe = document.querySelector('.iframe-container iframe');
+            let isRedirecting = false;
+
+            function redirectToThankYou() {
+                if (isRedirecting) return;
+                isRedirecting = true;
+                window.location.href = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
+            }
+
+            if (iframe) {
+                // Проверяем URL каждые 500 мс
+                const originalSrc = iframe.src;
+                setInterval(function() {
+                    try {
+                        const currentUrl = iframe.contentWindow.location.href;
+                        // Если URL изменился и не содержит forms.yandex.ru (т.е. форма отправлена)
+                        if (currentUrl !== originalSrc && !currentUrl.includes('forms.yandex.ru')) {
+                            redirectToThankYou();
+                        }
+                    } catch (e) {
+                        // При кросс-доменной ошибке мы перехватываем момент отправки
+                        redirectToThankYou();
+                    }
+                }, 500);
+            }
+        })();
     </script>
 </body>
 </html>
