@@ -135,6 +135,7 @@
             font-weight: bold;
         }
 
+        /* СТИЛЬ ДЛЯ ПРОЙДЕННЫХ ШАГОВ (ВИДЕТЬ и ГОВОРИТЬ) */
         .step-cell.passed .step-title {
             font-family: 'Oswald', sans-serif;
             font-size: 26px;
@@ -171,6 +172,7 @@
             mix-blend-mode: multiply;
         }
 
+        /* АКТИВНЫЙ ШАГ — ВЛИЯТЬ (03) */
         .step-cell.active .step-title {
             font-family: 'Oswald', sans-serif;
             font-size: 44px;
@@ -442,6 +444,7 @@
             <span class="pulse-dot"></span>
         </div>
         <nav class="steps-table">
+            <!-- ШАГ 01: ПРОЙДЕН -->
             <div class="step-cell passed">
                 <span class="step-num">01</span>
                 <div class="stamp-container">
@@ -449,10 +452,15 @@
                     <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
                 </div>
             </div>
+            <!-- ШАГ 02: ПРОЙДЕН (ТЕПЕРЬ ЗАПЕЧАТАН) -->
             <div class="step-cell passed">
                 <span class="step-num">02</span>
-                <span class="step-title">ГОВОРИТЬ</span>
+                <div class="stamp-container">
+                    <span class="step-title">ГОВОРИТЬ</span>
+                    <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
+                </div>
             </div>
+            <!-- ШАГ 03: АКТИВЕН -->
             <div class="step-cell active">
                 <span class="step-num">03</span>
                 <span class="step-title">ВЛИЯТЬ</span>
@@ -474,8 +482,8 @@
             Решение за тобой.»
         </div>
 
+
         <div class="choice-buttons">
-            <!-- ССЫЛКА НА ТРЕТЬЮ ФОРМУ ОБНОВЛЕНА -->
             <a href="https://forms.yandex.ru/cloud/6a71b87695add535fedb6154" class="cta-primary" target="_blank">
                 ХОЧУ ВЛИЯТЬ ДАЛЬШЕ
             </a>
