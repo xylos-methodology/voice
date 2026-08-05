@@ -410,48 +410,16 @@
     </footer>
 
     <script>
-    // 1. Блокировка ПКМ и горячих клавиш
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
-            e.preventDefault();
-            alert("Действие заблокировано политикой безопасности.");
-            return false;
-        }
-        if (e.keyCode === 123) { e.preventDefault(); return false; }
-    });
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // 2. PostMessage-перехватчик (основной механизм)
-    let isRedirected = false;
-
-    window.addEventListener('message', function(event) {
-        if (isRedirected) return;
-        if (event.origin.indexOf('yandex') === -1) return;
-
-        // Ловим событие отправки формы
-        const data = event.data;
-        if (data && (data.type === 'yaFormSubmit' || data.action === 'submit' || data.height)) {
-            isRedirected = true;
-            window.top.location.href = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
-        }
-    });
-
-    // 3. Запасной таймаут (если PostMessage не сработает)
-    setTimeout(function() {
-        if (!isRedirected) {
-            // Если форма была отправлена, но событие не поймалось — редиректим принудительно
-            // Для этого проверяем, изменился ли URL iframe
-            try {
-                const iframe = document.querySelector('.ya-b2b-iframe');
-                if (iframe && iframe.contentWindow.location.href !== iframe.src) {
-                    isRedirected = true;
-                    window.top.location.href = 'https://xylos-methodology.github.io/voice/thank-you-1.html';
-                }
-            } catch(e) {
-                // Если доступ к iframe заблокирован, ничего не делаем
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
+                e.preventDefault();
+                alert("Действие заблокировано политикой безопасности.");
+                return false;
             }
-        }
-    }, 5000);
-</script>
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+        });
+    </script>
 </body>
 </html>
