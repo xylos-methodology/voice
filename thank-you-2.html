@@ -197,7 +197,7 @@
             margin: 0 auto;
         }
 
-        /* ВСЕ ЭЛЕМЕНТЫ ВНУТРИ — 800px, центрированы */
+        /* КОНТЕНТ — 800px, центрирован */
         .content {
             max-width: 800px;
             margin: 0 auto;
@@ -227,12 +227,12 @@
             font-size: 18px;
             line-height: 1.6;
             color: #B82E12;
+            text-align: left;
+            margin: 0 0 30px 0;
             padding: 16px 24px;
             border: 2px dashed #1A1C1E;
             background: rgba(26, 28, 30, 0.05);
             transform: rotate(1deg);
-            margin: 0 0 30px 0;
-            text-align: left;
             box-sizing: border-box;
         }
 
@@ -241,6 +241,71 @@
             color: #1A1C1E;
         }
 
+        /* КНОПКИ ВЕТВЛЕНИЯ (над формой) */
+        .content .choice-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 0 0 30px 0;
+        }
+
+        .content .choice-buttons .cta-primary {
+            background-color: #B82E12;
+            color: #FFFFFF;
+            font-family: 'Oswald', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 18px 24px;
+            border: 3px solid #1A1C1E;
+            box-shadow: 0 8px 0 #1A1C1E;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.1s ease;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .content .choice-buttons .cta-primary:hover {
+            background-color: #A3240D;
+            transform: translateY(2px);
+            box-shadow: 0 6px 0 #1A1C1E;
+        }
+
+        .content .choice-buttons .cta-primary:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #1A1C1E;
+        }
+
+        .content .choice-buttons .cta-secondary {
+            background-color: #1A1C1E;
+            color: #FFFFFF;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 14px 24px;
+            border: 2px solid #1A1C1E;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.1s ease;
+            display: inline-block;
+            opacity: 0.8;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .content .choice-buttons .cta-secondary:hover {
+            opacity: 1;
+            background-color: #25282B;
+        }
+
+        .content .choice-buttons .cta-secondary:active {
+            transform: scale(0.98);
+        }
+
+        /* ФОРМА №3 (встроена под кнопками) */
         .content .form-wrapper {
             width: 100%;
             display: flex;
@@ -255,6 +320,7 @@
             min-height: 600px;
         }
 
+        /* ПАРЯЩИЙ ЩИТ */
         .floating-anti-yandex-shield {
             position: fixed;
             bottom: 0;
@@ -362,6 +428,15 @@
                 font-size: 15px;
                 padding: 12px 16px;
             }
+            .content .choice-buttons .cta-primary {
+                font-size: 18px;
+                padding: 14px 20px;
+                box-shadow: 0 5px 0 #1A1C1E;
+            }
+            .content .choice-buttons .cta-secondary {
+                font-size: 14px;
+                padding: 12px 16px;
+            }
             .content .form-wrapper iframe {
                 min-height: 500px;
             }
@@ -437,10 +512,12 @@
     <main class="main-container">
         <div class="content">
 
+            <!-- КАРТИНКА (натюрморт с ноутбуком) -->
             <div class="hero-image">
-                <img src="catharsis.png" alt="Погасший ноутбук и внутренний голос" loading="lazy">
+                <img src="catharsis.png" alt="Погасший ноутбук и чашка кофе" loading="lazy">
             </div>
 
+            <!-- ВНУТРЕННИЙ ГОЛОС -->
             <div class="inner-voice">
                 <strong>Внутренний голос:</strong> «Ты выговорился. Теперь есть выбор.<br>
                 Можно просто закрыть вкладку<br>
@@ -448,7 +525,18 @@
                 Решение за тобой.»
             </div>
 
-            <div class="form-wrapper">
+            <!-- ВЕТВЛЕНИЕ (КНОПКИ НАД ФОРМОЙ) -->
+            <div class="choice-buttons">
+                <a href="#form3" class="cta-primary" id="showFormBtn">
+                    ХОЧУ ВЛИЯТЬ ДАЛЬШЕ
+                </a>
+                <a href="https://xylos-methodology.github.io/voice/" class="cta-secondary">
+                    ЗАКОНЧИТЬ СЕССИЮ
+                </a>
+            </div>
+
+            <!-- ФОРМА №3 (встроена, скрыта по умолчанию, появляется по клику) -->
+            <div class="form-wrapper" id="form3" style="display: none;">
                 <script src="https://forms.yandex.ru/_static/embed.js"></script>
                 <iframe src="https://forms.yandex.ru/cloud/6a71b87695add535fedb6154?iframe=1" frameborder="0" name="ya-form-3" width="100%"></iframe>
             </div>
@@ -471,6 +559,18 @@
     </footer>
 
     <script>
+        // ПОКАЗЫВАЕМ ФОРМУ ПО КЛИКУ НА КНОПКУ «ХОЧУ ВЛИЯТЬ ДАЛЬШЕ»
+        document.getElementById('showFormBtn').addEventListener('click', function(e) {
+            e.preventDefault(); // Отменяем переход по ссылке
+            const form = document.getElementById('form3');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                // Плавно прокручиваем к форме
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // БЛОКИРОВКА ПКМ И КЛАВИШ
         document.addEventListener('contextmenu', e => e.preventDefault());
 
         document.addEventListener('keydown', function(e) {
