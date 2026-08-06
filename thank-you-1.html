@@ -60,7 +60,7 @@
             overflow-x: hidden;
         }
 
-        /* ХЕДЕР */
+        /* ХЕДЕР (активный шаг ГОВОРИТЬ) */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -197,61 +197,70 @@
             margin: 0 auto;
         }
 
-        /* СЦЕНА МОСТА — ТОЛЬКО КАРТИНКА И КНОПКА */
-        .bridge-layout {
+        /* МОСТ С КАРТИНКОЙ И БАБЛОМ */
+        .bridge-scene {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 15px;
+            text-align: center;
+            padding-top: 20px;
         }
 
-        .comic-frame {
+        .bridge-scene .comic-frame {
             width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 750px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 40px;
         }
 
-        .comic-img {
+        .bridge-scene .comic-frame img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* КНОПКА */
-        .button-container {
+        .bridge-scene .bridge-context {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #1A1C1E;
+            opacity: 0.8;
+        }
+
+        /* КОНТЕЙНЕР ФОРМЫ №2 (встроена прямо под картинкой) */
+        .form-wrapper {
             width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0 0 20px 0;
+            box-sizing: border-box;
             display: flex;
             justify-content: center;
+            position: relative;
         }
 
-        .xerox-ribbon-button {
-            display: inline-block;
-            background-color: #B82E12;
-            color: #FFFFFF;
-            text-decoration: none;
-            font-family: 'Oswald', sans-serif;
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            padding: 18px 45px;
-            border: 3px solid #1A1C1E;
-            box-shadow: 0 8px 0 #1A1C1E;
-            text-transform: uppercase;
-            transition: all 0.1s ease;
-            cursor: pointer;
+        iframe {
+            width: 100%;
+            border: none;
+            display: block;
+            min-height: 600px;
         }
 
-        .xerox-ribbon-button:hover {
-            background-color: #A3240D;
-            transform: translateY(2px);
-            box-shadow: 0 6px 0 #1A1C1E;
-        }
-
-        .xerox-ribbon-button:active {
-            transform: translateY(8px);
-            box-shadow: 0 0 0 #1A1C1E;
+        /* ПАРЯЩИЙ ЩИТ */
+        .floating-anti-yandex-shield {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 42px;
+            background-color: #F8F9FA;
+            z-index: 99999;
+            pointer-events: none;
+            border-top: 1px solid #F8F9FA;
         }
 
         /* ФУТЕР */
@@ -314,6 +323,7 @@
             display: block;
         }
 
+        /* АДАПТИВНОСТЬ */
         @media (max-width: 600px) {
             .voice-header {
                 padding: 0 10px;
@@ -345,10 +355,19 @@
             .main-container {
                 padding: 5px 10px 20px 10px;
             }
-            .xerox-ribbon-button {
-                font-size: 16px;
-                padding: 12px 24px;
-                box-shadow: 0 5px 0 #1A1C1E;
+            .bridge-scene .bridge-context {
+                font-size: 14px;
+                padding: 0 10px;
+            }
+            .form-wrapper {
+                max-width: 100%;
+                padding: 0 0 20px 0;
+            }
+            iframe {
+                min-height: 500px;
+            }
+            .floating-anti-yandex-shield {
+                height: 36px;
             }
             .premium-footer {
                 padding: 16px 12px;
@@ -358,6 +377,12 @@
                 flex-direction: column;
                 gap: 8px;
                 align-items: flex-start;
+            }
+        }
+
+        @media (min-width: 601px) {
+            iframe {
+                min-height: 800px;
             }
         }
 
@@ -407,15 +432,25 @@
         </nav>
     </header>
 
-    <main class="main-container bridge-layout">
+    <main class="main-container bridge-scene">
+
         <div class="comic-frame">
-            <img src="bridge-scene.png" alt="Да, входите! Я тут застрял со слайдами..." class="comic-img">
+            <img src="bridge-scene.png" alt="Да, входите! Я тут застрял со слайдами..." loading="lazy">
         </div>
-        <div class="button-container">
-            <a href="form2.html" class="xerox-ribbon-button">
-                [ ЗАЙТИ И ВЫПИТЬ КОФЕ С КОЛЛЕГОЙ ➔ ]
-            </a>
+
+        <div class="bridge-context">
+            Короткие ответы помогли увидеть масштаб. Но настоящие изменения рождаются из деталей.<br>
+            Пора рассказать, что на самом деле происходит за кулисами ночной рутины.
         </div>
+
+        <!-- ФОРМА №2 (7 полей «плача») — ВСТРОЕНА ПРЯМО ЗДЕСЬ -->
+        <div class="form-wrapper">
+            <script src="https://forms.yandex.ru/_static/embed.js"></script>
+            <iframe src="https://forms.yandex.ru/cloud/6a607b33f47e73229d313795?iframe=1" frameborder="0" name="ya-form-2" width="100%"></iframe>
+        </div>
+
+        <div class="floating-anti-yandex-shield"></div>
+
     </main>
 
     <footer class="premium-footer">
