@@ -60,7 +60,7 @@
             overflow-x: hidden;
         }
 
-        /* ХЕДЕР */
+        /* ХЕДЕР (1000px) */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -135,7 +135,6 @@
             font-weight: bold;
         }
 
-        /* СТИЛЬ ДЛЯ ПРОЙДЕННЫХ ШАГОВ (ВИДЕТЬ и ГОВОРИТЬ) */
         .step-cell.passed .step-title {
             font-family: 'Oswald', sans-serif;
             font-size: 26px;
@@ -172,7 +171,6 @@
             mix-blend-mode: multiply;
         }
 
-        /* АКТИВНЫЙ ШАГ — ВЛИЯТЬ (03) */
         .step-cell.active .step-title {
             font-family: 'Oswald', sans-serif;
             font-size: 44px;
@@ -190,7 +188,7 @@
             opacity: 1;
         }
 
-        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        /* ОСНОВНОЙ КОНТЕЙНЕР (1000px) */
         .main-container {
             width: 100%;
             max-width: 1000px;
@@ -199,108 +197,77 @@
             margin: 0 auto;
         }
 
-        /* СЦЕНА КАТАРСИСА */
-        .catharsis-scene {
+        /* ВСЕ ЭЛЕМЕНТЫ ВНУТРИ — 800px, центрированы */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            padding-top: 20px;
+            width: 100%;
         }
 
-        .catharsis-scene .hero-image {
+        .content .hero-image {
             width: 100%;
-            max-width: 750px;
-            margin: 0 auto 30px auto;
+            margin: 0 0 30px 0;
             box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             border-radius: 4px;
             overflow: hidden;
         }
 
-        .catharsis-scene .hero-image img {
+        .content .hero-image img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        .catharsis-scene .inner-voice {
+        .content .inner-voice {
+            width: 100%;
             font-family: 'Roboto Mono', monospace;
             font-size: 18px;
             line-height: 1.6;
             color: #B82E12;
-            max-width: 700px;
-            margin: 0 0 30px 0;
             padding: 16px 24px;
             border: 2px dashed #1A1C1E;
             background: rgba(26, 28, 30, 0.05);
             transform: rotate(1deg);
+            margin: 0 0 30px 0;
+            text-align: left;
+            box-sizing: border-box;
         }
 
-        .catharsis-scene .inner-voice strong {
+        .content .inner-voice strong {
             font-weight: 900;
             color: #1A1C1E;
         }
 
-        .choice-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .content .form-wrapper {
             width: 100%;
-            max-width: 600px;
+            display: flex;
+            justify-content: center;
+            position: relative;
         }
 
-        .choice-buttons .cta-primary {
-            background-color: #B82E12;
-            color: #FFFFFF;
-            font-family: 'Oswald', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 18px 24px;
-            border: 3px solid #1A1C1E;
-            box-shadow: 0 8px 0 #1A1C1E;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.1s ease;
-            display: inline-block;
+        .content .form-wrapper iframe {
+            width: 100%;
+            border: none;
+            display: block;
+            min-height: 600px;
         }
 
-        .choice-buttons .cta-primary:hover {
-            background-color: #A3240D;
-            transform: translateY(2px);
-            box-shadow: 0 6px 0 #1A1C1E;
+        .floating-anti-yandex-shield {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 42px;
+            background-color: #F8F9FA;
+            z-index: 99999;
+            pointer-events: none;
+            border-top: 1px solid #F8F9FA;
         }
 
-        .choice-buttons .cta-primary:active {
-            transform: translateY(8px);
-            box-shadow: 0 0 0 #1A1C1E;
-        }
-
-        .choice-buttons .cta-secondary {
-            background-color: #1A1C1E;
-            color: #FFFFFF;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 14px 24px;
-            border: 2px solid #1A1C1E;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.1s ease;
-            display: inline-block;
-            opacity: 0.8;
-        }
-
-        .choice-buttons .cta-secondary:hover {
-            opacity: 1;
-            background-color: #25282B;
-        }
-
-        .choice-buttons .cta-secondary:active {
-            transform: scale(0.98);
-        }
-
-        /* ФУТЕР */
+        /* ФУТЕР (1000px) */
         .premium-footer {
             width: 100%;
             max-width: 1000px;
@@ -391,19 +358,15 @@
             .main-container {
                 padding: 5px 10px 20px 10px;
             }
-            .catharsis-scene .inner-voice {
+            .content .inner-voice {
                 font-size: 15px;
                 padding: 12px 16px;
-                max-width: 95%;
             }
-            .choice-buttons .cta-primary {
-                font-size: 18px;
-                padding: 14px 20px;
-                box-shadow: 0 5px 0 #1A1C1E;
+            .content .form-wrapper iframe {
+                min-height: 500px;
             }
-            .choice-buttons .cta-secondary {
-                font-size: 14px;
-                padding: 12px 16px;
+            .floating-anti-yandex-shield {
+                height: 36px;
             }
             .premium-footer {
                 padding: 16px 12px;
@@ -413,6 +376,12 @@
                 flex-direction: column;
                 gap: 8px;
                 align-items: flex-start;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .content .form-wrapper iframe {
+                min-height: 800px;
             }
         }
 
@@ -444,7 +413,6 @@
             <span class="pulse-dot"></span>
         </div>
         <nav class="steps-table">
-            <!-- ШАГ 01: ПРОЙДЕН -->
             <div class="step-cell passed">
                 <span class="step-num">01</span>
                 <div class="stamp-container">
@@ -452,15 +420,13 @@
                     <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
                 </div>
             </div>
-            <!-- ШАГ 02: ПРОЙДЕН (ТЕПЕРЬ ЗАПЕЧАТАН) -->
             <div class="step-cell passed">
                 <span class="step-num">02</span>
                 <div class="stamp-container">
                     <span class="step-title">ГОВОРИТЬ</span>
-                    <span class="overlay-stamp">ЗАФИКСИРОВАНО</span>
+                    <span class="overlay-stamp">ВЫГРУЖЕНО</span>
                 </div>
             </div>
-            <!-- ШАГ 03: АКТИВЕН -->
             <div class="step-cell active">
                 <span class="step-num">03</span>
                 <span class="step-title">ВЛИЯТЬ</span>
@@ -468,29 +434,27 @@
         </nav>
     </header>
 
-    <main class="main-container catharsis-scene">
+    <main class="main-container">
+        <div class="content">
 
-        <div class="hero-image">
-            <img src="catharsis.png" alt="Погасший ноутбук и внутренний голос" loading="lazy">
+            <div class="hero-image">
+                <img src="catharsis.png" alt="Погасший ноутбук и внутренний голос" loading="lazy">
+            </div>
+
+            <div class="inner-voice">
+                <strong>Внутренний голос:</strong> «Ты выговорился. Теперь есть выбор.<br>
+                Можно просто закрыть вкладку<br>
+                и продолжить работать. А можно оставить контакт и реально повлиять на то, как делаются презентации в компании.<br>
+                Решение за тобой.»
+            </div>
+
+            <div class="form-wrapper">
+                <script src="https://forms.yandex.ru/_static/embed.js"></script>
+                <iframe src="https://forms.yandex.ru/cloud/6a71b87695add535fedb6154?iframe=1" frameborder="0" name="ya-form-3" width="100%"></iframe>
+            </div>
+
         </div>
-
-        <div class="inner-voice">
-            <strong>«Ты выговорился. Теперь есть выбор.<br>
-            Можно просто закрыть вкладку и продолжить работать.<br> 
-            А можно оставить контакт и реально повлиять на то,<br>  
-            как делаются презентации в компании.<br>
-            Решение за тобой.»
-        </div>
-
-<div class="choice-buttons">
-    <a href="form3.html" class="cta-primary">
-        ХОЧУ ВЛИЯТЬ ДАЛЬШЕ
-    </a>
-    <a href="https://xylos-methodology.github.io/voice/" class="cta-secondary">
-        ЗАКОНЧИТЬ СЕССИЮ
-    </a>
-</div>
-
+        <div class="floating-anti-yandex-shield"></div>
     </main>
 
     <footer class="premium-footer">
