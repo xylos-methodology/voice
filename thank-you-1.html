@@ -60,7 +60,7 @@
             overflow-x: hidden;
         }
 
-        /* ХЕДЕР (1000px) */
+        /* ХЕДЕР (активный шаг ГОВОРИТЬ) */
         .voice-header {
             width: 100%;
             max-width: 1000px;
@@ -188,6 +188,7 @@
             opacity: 1;
         }
 
+        /* ОСНОВНОЙ КОНТЕЙНЕР (1000px) */
         .main-container {
             width: 100%;
             max-width: 1000px;
@@ -196,7 +197,6 @@
             margin: 0 auto;
         }
 
-        /* ВСЕ ЭЛЕМЕНТЫ ВНУТРИ — 800px, центрированы */
         .content {
             max-width: 800px;
             margin: 0 auto;
@@ -220,20 +220,50 @@
             display: block;
         }
 
-        .content .form-wrapper {
+        .content .bridge-context {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            position: relative;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #1A1C1E;
+            opacity: 0.8;
+            text-align: left;
+            margin: 0 0 30px 0;
         }
 
-        .content .form-wrapper iframe {
+        /* КНОПКА НА form2.html */
+        .content .cta-ribbon-button {
+            display: inline-block;
+            background-color: #B82E12;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            padding: 18px 45px;
+            border: 3px solid #1A1C1E;
+            box-shadow: 0 8px 0 #1A1C1E;
+            text-transform: uppercase;
+            transition: all 0.1s ease;
+            cursor: pointer;
+            text-align: center;
             width: 100%;
-            border: none;
-            display: block;
-            min-height: 600px;
+            box-sizing: border-box;
         }
 
+        .content .cta-ribbon-button:hover {
+            background-color: #A3240D;
+            transform: translateY(2px);
+            box-shadow: 0 6px 0 #1A1C1E;
+        }
+
+        .content .cta-ribbon-button:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #1A1C1E;
+        }
+
+        /* ПАРЯЩИЙ ЩИТ (уже не нужен, но оставляем на всякий случай) */
         .floating-anti-yandex-shield {
             position: fixed;
             bottom: 0;
@@ -246,6 +276,7 @@
             border-top: 1px solid #F8F9FA;
         }
 
+        /* ФУТЕР */
         .premium-footer {
             width: 100%;
             max-width: 1000px;
@@ -336,11 +367,13 @@
             .main-container {
                 padding: 5px 10px 20px 10px;
             }
-            .content .form-wrapper iframe {
-                min-height: 500px;
+            .content .bridge-context {
+                font-size: 14px;
             }
-            .floating-anti-yandex-shield {
-                height: 36px;
+            .content .cta-ribbon-button {
+                font-size: 18px;
+                padding: 14px 20px;
+                box-shadow: 0 5px 0 #1A1C1E;
             }
             .premium-footer {
                 padding: 16px 12px;
@@ -350,12 +383,6 @@
                 flex-direction: column;
                 gap: 8px;
                 align-items: flex-start;
-            }
-        }
-
-        @media (min-width: 601px) {
-            .content .form-wrapper iframe {
-                min-height: 800px;
             }
         }
 
@@ -407,16 +434,18 @@
 
     <main class="main-container">
         <div class="content">
-
             <div class="comic-frame">
                 <img src="bridge-scene.png" alt="Да, входите! Я тут застрял со слайдами..." loading="lazy">
             </div>
 
-            <div class="form-wrapper">
-                <script src="https://forms.yandex.ru/_static/embed.js"></script>
-                <iframe src="https://forms.yandex.ru/cloud/6a607b33f47e73229d313795?iframe=1" frameborder="0" name="ya-form-2" width="100%"></iframe>
+            <div class="bridge-context">
+                Короткие ответы помогли увидеть масштаб. Но настоящие изменения рождаются из деталей.<br>
+                Пора рассказать, что на самом деле происходит за кулисами ночной рутины.
             </div>
 
+            <a href="form2.html" class="cta-ribbon-button">
+                [ ЗАЙТИ И ВЫПИТЬ КОФЕ С КОЛЛЕГОЙ ➔ ]
+            </a>
         </div>
         <div class="floating-anti-yandex-shield"></div>
     </main>
