@@ -197,37 +197,21 @@
             margin: 0 auto;
         }
 
-        .content {
+        /* КОНТЕЙНЕР ДЛЯ ФОРМЫ — 800px, центрирован */
+        .form-wrapper {
             max-width: 800px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        .content .form-header {
-            width: 100%;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #1A1C1E;
-            text-align: left;
-            margin: 0 0 30px 0;
-        }
-
-        .content .form-wrapper {
-            width: 100%;
-            display: flex;
             justify-content: center;
-            position: relative;
+            width: 100%;
         }
 
-        .content .form-wrapper iframe {
+        .form-wrapper iframe {
             width: 100%;
             border: none;
             display: block;
             min-height: 600px;
+            max-width: 800px;
         }
 
         .floating-anti-yandex-shield {
@@ -333,10 +317,7 @@
             .main-container {
                 padding: 5px 10px 20px 10px;
             }
-            .content .form-header {
-                font-size: 14px;
-            }
-            .content .form-wrapper iframe {
+            .form-wrapper iframe {
                 min-height: 500px;
             }
             .floating-anti-yandex-shield {
@@ -354,7 +335,7 @@
         }
 
         @media (min-width: 601px) {
-            .content .form-wrapper iframe {
+            .form-wrapper iframe {
                 min-height: 800px;
             }
         }
@@ -406,10 +387,9 @@
     </header>
 
     <main class="main-container">
-                    <div class="form-wrapper">
-                <script src="https://forms.yandex.ru/_static/embed.js"></script>
-                <iframe src="https://forms.yandex.ru/cloud/6a607b33f47e73229d313795?iframe=1" frameborder="0" name="ya-form-2" width="100%"></iframe>
-            </div>
+        <div class="form-wrapper">
+            <script src="https://forms.yandex.ru/_static/embed.js"></script>
+            <iframe src="https://forms.yandex.ru/cloud/6a607b33f47e73229d313795?iframe=1" frameborder="0" name="ya-form-2" width="100%"></iframe>
         </div>
         <div class="floating-anti-yandex-shield"></div>
     </main>
@@ -428,8 +408,10 @@
     </footer>
 
     <script>
+        // БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ
         document.addEventListener('contextmenu', e => e.preventDefault());
 
+        // БЛОКИРОВКА ГОРЯЧИХ КЛАВИШ
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
